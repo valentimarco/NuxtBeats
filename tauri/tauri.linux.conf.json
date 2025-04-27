@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schema.tauri.app/config/2.0.0",
+  "productName": "NuxtBeats",
+  "version": "0.0.0",
+  "identifier": "it.nuxtbeats.dev.nuxtbeats",
+  "app": {
+    "enableGTKAppId": true,
+    "windows": [
+      {
+        "title": "NuxtBeats",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  },
+  "bundle": {
+    "resources": [
+      "./linux-assets"
+    ]
+  },
+  "plugins": {}
+}

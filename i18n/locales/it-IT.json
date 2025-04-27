@@ -1,0 +1,19 @@
+{
+  "aria": {
+    "toggle": "Cambia",
+    "copy": "Copia negli appunti",
+    "goTop": "Vai in alto",
+    "clear": "Pulisci",
+    "select": "Seleziona {0}",
+    "selectAll": "Seleziona tutto",
+    "more": "Altro"
+  },
+  "theme": {
+    "light": "Modalità Chiara",
+    "dark": "Modalità Scura",
+    "toggle": "@:aria.toggle tema"
+  },
+  "language": {
+    "toggle": "@:aria.toggle lingua"
+  }
+}

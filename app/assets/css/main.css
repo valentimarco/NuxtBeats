@@ -1,0 +1,210 @@
+@import "tailwindcss" theme(static);
+@import "@nuxt/ui";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme static {
+  --font-sans: 'Lato', sans-serif;
+  --font-title: 'Plus Jakarta Sans', sans-serif;
+
+  /* Purple color palette (based on the mauve from example) */
+  --color-purple-50: #e2cffa;
+  --color-purple-100: #dcc6f9;
+  --color-purple-200: #d7bcf8;
+  --color-purple-300: #d1b3f7;
+  --color-purple-400: #cba9f6;
+  --color-purple-500: #c6a0f6;
+  --color-purple-600: #b290dd;
+  --color-purple-700: #9e80c4;
+  --color-purple-800: #8a70ac;
+  --color-purple-900: #766093;
+  --color-purple-950: #63507b;
+
+  /* Pink color palette (based on the maroon from example) */
+  --color-pink-50: #f6cccf;
+  --color-pink-100: #f4c1c6;
+  --color-pink-200: #f3b7bc;
+  --color-pink-300: #f1adb3;
+  --color-pink-400: #efa3a9;
+  --color-pink-500: #ee99a0;
+  --color-pink-600: #d68990;
+  --color-pink-700: #be7a80;
+  --color-pink-800: #a66b70;
+  --color-pink-900: #8e5b60;
+  --color-pink-950: #774c50;
+
+  /* Zinc color palette (based on the gray from example) */
+  --color-zinc-50: #f8f8fa;
+  --color-zinc-100: #e9eaed;
+  --color-zinc-200: #c5c7cf;
+  --color-zinc-300: #a1a4b0;
+  --color-zinc-400: #91939c;
+  --color-zinc-500: #7b7d88;
+  --color-zinc-600: #656775;
+  --color-zinc-700: #4f5261;
+  --color-zinc-800: #393c4d;
+  --color-zinc-900: #24273a;
+  --color-zinc-950: #12131d;
+
+  /* Amber color palette (based on the peach from example) */
+  --color-amber-50: #fad4bf;
+  --color-amber-100: #f9cbb2;
+  --color-amber-200: #f8c2a5;
+  --color-amber-300: #f7ba98;
+  --color-amber-400: #f6b18b;
+  --color-amber-500: #f5a97f;
+  --color-amber-600: #dc9872;
+  --color-amber-700: #c48765;
+  --color-amber-800: #ab7658;
+  --color-amber-900: #93654c;
+  --color-amber-950: #7a543f;
+
+  /* Green color palette (based on the pea from example) */
+  --color-green-50: #d2ecca;
+  --color-green-100: #c9e8bf;
+  --color-green-200: #c0e5b4;
+  --color-green-300: #b7e1aa;
+  --color-green-400: #aedd9f;
+  --color-green-500: #a6da95;
+  --color-green-600: #95c486;
+  --color-green-700: #84ae77;
+  --color-green-800: #749868;
+  --color-green-900: #638259;
+  --color-green-950: #536d4a;
+
+  /* Sky color palette (based on the sapphire from example) */
+  --color-sky-50: #bee1f1;
+  --color-sky-100: #b1dbee;
+  --color-sky-200: #a4d5ec;
+  --color-sky-300: #97cfe9;
+  --color-sky-400: #8ac9e6;
+  --color-sky-500: #7dc4e4;
+  --color-sky-600: #70b0cd;
+  --color-sky-700: #649cb6;
+  --color-sky-800: #57899f;
+  --color-sky-900: #4b7588;
+  --color-sky-950: #3e6272;
+
+  --color-primary-50: var(--ui-color-primary-50);
+  --color-primary-100: var(--ui-color-primary-100);
+  --color-primary-200: var(--ui-color-primary-200);
+  --color-primary-300: var(--ui-color-primary-300);
+  --color-primary-400: var(--ui-color-primary-400);
+  --color-primary: var(--ui-color-primary-500);
+  --color-primary-600: var(--ui-color-primary-600);
+  --color-primary-700: var(--ui-color-primary-700);
+  --color-primary-800: var(--ui-color-primary-800);
+  --color-primary-900: var(--ui-color-primary-900);
+  --color-primary-950: var(--ui-color-primary-950);
+
+  --color-secondary-50: var(--ui-color-secondary-50);
+  --color-secondary-100: var(--ui-color-secondary-100);
+  --color-secondary-200: var(--ui-color-secondary-200);
+  --color-secondary-300: var(--ui-color-secondary-300);
+  --color-secondary-400: var(--ui-color-secondary-400);
+  --color-secondary: var(--ui-color-secondary-500);
+  --color-secondary-600: var(--ui-color-secondary-600);
+  --color-secondary-700: var(--ui-color-secondary-700);
+  --color-secondary-800: var(--ui-color-secondary-800);
+  --color-secondary-900: var(--ui-color-secondary-900);
+  --color-secondary-950: var(--ui-color-secondary-950);
+
+  --color-neutral-50: var(--ui-color-neutral-50);
+  --color-neutral-100: var(--ui-color-neutral-100);
+  --color-neutral-200: var(--ui-color-neutral-200);
+  --color-neutral-300: var(--ui-color-neutral-300);
+  --color-neutral-400: var(--ui-color-neutral-400);
+  --color-neutral: var(--ui-color-neutral-500);
+  --color-neutral-600: var(--ui-color-neutral-600);
+  --color-neutral-700: var(--ui-color-neutral-700);
+  --color-neutral-800: var(--ui-color-neutral-800);
+  --color-neutral-900: var(--ui-color-neutral-900);
+  --color-neutral-950: var(--ui-color-neutral-950);
+
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.75rem;
+
+  --breakpoint-3xl: 120rem;
+}
+
+:root {
+  /* Least prominent text */
+  --ui-text-dimmed: var(--ui-color-neutral-400);
+  /* Slightly muted text */
+  --ui-text-muted: var(--ui-color-neutral-500);
+  /* Moderately prominent text */
+  --ui-text-toned: var(--ui-color-neutral-600);
+  /* Default text color */
+  --ui-text: var(--ui-color-neutral-700);
+  /* Most prominent text */
+  --ui-text-highlighted: var(--ui-color-neutral-900);
+
+  /* Main background color */
+  --ui-bg: var(--ui-color-neutral-50);
+  /* Slightly elevated background */
+  --ui-bg-elevated: var(--ui-color-neutral-200);
+  /* Subtle background */
+  --ui-bg-muted: var(--ui-color-neutral-100);
+  /* More prominent background */
+  --ui-bg-accented: var(--ui-color-neutral-300);
+  /* Inverted background color */
+  --ui-bg-inverted: var(--ui-color-neutral-900);
+
+  /* Default border color */
+  --ui-border: var(--ui-color-neutral-200);
+  /* More prominent border */
+  --ui-border-accented: var(--ui-color-neutral-300);
+  /* Subtle border */
+  --ui-border-muted: var(--ui-color-neutral-400);
+  /* Inverted border color */
+  --ui-border-inverted: var(--ui-color-neutral-900);
+}
+
+.dark {
+  /* Least prominent text */
+  --ui-text-dimmed: var(--ui-color-neutral-500);
+  /* Slightly muted text */
+  --ui-text-muted: var(--ui-color-neutral-400);
+  /* Moderately prominent text */
+  --ui-text-toned: var(--ui-color-neutral-300);
+  /* Default text color */
+  --ui-text: var(--ui-color-neutral-200);
+  /* Most prominent text */
+  --ui-text-highlighted: var(--ui-color-neutral-50);
+
+  /* Main background color */
+  --ui-bg: var(--ui-color-neutral-900);
+  /* Slightly elevated background */
+  --ui-bg-elevated: var(--ui-color-neutral-800);
+  /* Subtle background */
+  --ui-bg-muted: var(--ui-color-neutral-700);
+  /* More prominent background */
+  --ui-bg-accented: var(--ui-color-neutral-600);
+  /* Inverted background color */
+  --ui-bg-inverted: var(--ui-color-neutral-50);
+
+  /* Default border color */
+  --ui-border: var(--ui-color-neutral-800);
+  /* More prominent border */
+  --ui-border-accented: var(--ui-color-neutral-700);
+  /* Subtle border */
+  --ui-border-muted: var(--ui-color-neutral-600);
+  /* Inverted border color */
+  --ui-border-inverted: var(--ui-color-neutral-50);
+}
+
+::-webkit-scrollbar {
+  @apply size-1;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-(--ui-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-(--ui-primary) rounded-md;
+}
+
+::selection {
+  @apply text-(--ui-bg) bg-(--ui-primary)/50;
+}

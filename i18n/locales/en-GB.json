@@ -1,0 +1,19 @@
+{
+  "aria": {
+    "toggle": "Change",
+    "copy": "Copy to clipboard",
+    "goTop": "Go to the top",
+    "clear": "Clear",
+    "select": "Select {0}",
+    "selectAll": "Select all",
+    "more": "More"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "toggle": "@:aria.toggle theme"
+  },
+  "language": {
+    "toggle": "@:aria.toggle language"
+  }
+}

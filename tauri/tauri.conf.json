@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2.0.0",
-  "productName": "tauri-nuxt",
+  "productName": "NuxtBeats",
   "version": "0.0.0",
-  "identifier": "me.binau.dev.tauri-nuxt",
+  "identifier": "it.nuxtbeats.dev.nuxtbeats",
   "build": {
     "beforeDevCommand": "bun run dev",
     "beforeBuildCommand": "bun run generate",
@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "tauri-nuxt",
+        "title": "NuxtBeats",
         "width": 800,
         "height": 600
       }

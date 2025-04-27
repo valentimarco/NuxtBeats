@@ -1758,6 +1758,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "nuxtbeats"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-shell",
+]
+
+[[package]]
 name = "objc"
 version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3056,17 +3067,6 @@ dependencies = [
  "syn 2.0.79",
  "tauri-codegen",
  "tauri-utils",
-]
-
-[[package]]
-name = "tauri-nuxt"
-version = "0.0.0"
-dependencies = [
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-shell",
 ]
 
 [[package]]
