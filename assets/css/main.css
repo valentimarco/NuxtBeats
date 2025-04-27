@@ -1,0 +1,179 @@
+@import "tailwindcss" theme(static);
+@import "@nuxt/ui";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme static {
+  /* Font family */
+  --font-sans: "Public Sans", sans-serif;
+
+  /* Purple color palette (based on the mauve from example) */
+  --color-purple-50: #e2cffa;
+  --color-purple-100: #dcc6f9;
+  --color-purple-200: #d7bcf8;
+  --color-purple-300: #d1b3f7;
+  --color-purple-400: #cba9f6;
+  --color-purple-500: #c6a0f6;
+  --color-purple-600: #b290dd;
+  --color-purple-700: #9e80c4;
+  --color-purple-800: #8a70ac;
+  --color-purple-900: #766093;
+  --color-purple-950: #63507b;
+
+  /* Pink color palette (based on the maroon from example) */
+  --color-pink-50: #f6cccf;
+  --color-pink-100: #f4c1c6;
+  --color-pink-200: #f3b7bc;
+  --color-pink-300: #f1adb3;
+  --color-pink-400: #efa3a9;
+  --color-pink-500: #ee99a0;
+  --color-pink-600: #d68990;
+  --color-pink-700: #be7a80;
+  --color-pink-800: #a66b70;
+  --color-pink-900: #8e5b60;
+  --color-pink-950: #774c50;
+
+  /* Zinc color palette (based on the gray from example) */
+  --color-zinc-50: #f8f8fa;
+  --color-zinc-100: #e9eaed;
+  --color-zinc-200: #c5c7cf;
+  --color-zinc-300: #a1a4b0;
+  --color-zinc-400: #91939c;
+  --color-zinc-500: #7b7d88;
+  --color-zinc-600: #656775;
+  --color-zinc-700: #4f5261;
+  --color-zinc-800: #393c4d;
+  --color-zinc-900: #24273a;
+  --color-zinc-950: #12131d;
+
+  /* Amber color palette (based on the peach from example) */
+  --color-amber-50: #fad4bf;
+  --color-amber-100: #f9cbb2;
+  --color-amber-200: #f8c2a5;
+  --color-amber-300: #f7ba98;
+  --color-amber-400: #f6b18b;
+  --color-amber-500: #f5a97f;
+  --color-amber-600: #dc9872;
+  --color-amber-700: #c48765;
+  --color-amber-800: #ab7658;
+  --color-amber-900: #93654c;
+  --color-amber-950: #7a543f;
+
+  /* Green color palette (based on the pea from example) */
+  --color-green-50: #d2ecca;
+  --color-green-100: #c9e8bf;
+  --color-green-200: #c0e5b4;
+  --color-green-300: #b7e1aa;
+  --color-green-400: #aedd9f;
+  --color-green-500: #a6da95;
+  --color-green-600: #95c486;
+  --color-green-700: #84ae77;
+  --color-green-800: #749868;
+  --color-green-900: #638259;
+  --color-green-950: #536d4a;
+
+  /* Sky color palette (based on the sapphire from example) */
+  --color-sky-50: #bee1f1;
+  --color-sky-100: #b1dbee;
+  --color-sky-200: #a4d5ec;
+  --color-sky-300: #97cfe9;
+  --color-sky-400: #8ac9e6;
+  --color-sky-500: #7dc4e4;
+  --color-sky-600: #70b0cd;
+  --color-sky-700: #649cb6;
+  --color-sky-800: #57899f;
+  --color-sky-900: #4b7588;
+  --color-sky-950: #3e6272;
+
+  /* Primary and neutral colors (using purple as primary) */
+  --color-primary-50: var(--color-purple-50);
+  --color-primary-100: var(--color-purple-100);
+  --color-primary-200: var(--color-purple-200);
+  --color-primary-300: var(--color-purple-300);
+  --color-primary-400: var(--color-purple-400);
+  --color-primary-500: var(--color-purple-500);
+  --color-primary-600: var(--color-purple-600);
+  --color-primary-700: var(--color-purple-700);
+  --color-primary-800: var(--color-purple-800);
+  --color-primary-900: var(--color-purple-900);
+  --color-primary-950: var(--color-purple-950);
+
+  --color-neutral-50: var(--color-zinc-50);
+  --color-neutral-100: var(--color-zinc-100);
+  --color-neutral-200: var(--color-zinc-200);
+  --color-neutral-300: var(--color-zinc-300);
+  --color-neutral-400: var(--color-zinc-400);
+  --color-neutral-500: var(--color-zinc-500);
+  --color-neutral-600: var(--color-zinc-600);
+  --color-neutral-700: var(--color-zinc-700);
+  --color-neutral-800: var(--color-zinc-800);
+  --color-neutral-900: var(--color-zinc-900);
+  --color-neutral-950: var(--color-zinc-950);
+
+  /* Text sizes */
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.75rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 2.5rem;
+
+  /* Border radius */
+  --radius-sm: 0.125rem;
+  --radius: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-all: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-colors: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+:root {
+  --ui-radius: var(--radius-md);
+}
+
+.dark {
+  --ui-bg-muted: var(--ui-color-neutral-600);
+  --ui-border-muted: var(--ui-color-neutral-600);
+}
+
+::-webkit-scrollbar {
+  @apply size-1;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-(--ui-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-(--ui-primary) rounded-md;
+}
