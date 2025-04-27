@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center gap-4 h-screen">
+  <div class="size-full rounded-none flex flex-col overflow-auto p-2 md:p-4">
     <h1 class="font-bold text-2xl text-(--ui-primary)">
       Nuxt UI - Starter
     </h1>
