@@ -1,3 +1,12 @@
+<script setup lang="ts">
+
+const test = async () => {
+  const res = await commands.greet("hello from javascript")
+  console.log(res)
+}
+
+</script>
+
 <template>
   <div class="size-full rounded-none flex flex-col overflow-auto p-2 md:p-4">
     <h1 class="font-bold text-2xl text-(--ui-primary)">
@@ -10,6 +19,12 @@
         icon="i-lucide-square-play"
         to="https://ui.nuxt.com/getting-started/installation/nuxt"
         target="_blank"
+      />
+
+      <UButton
+        label="Documentation"
+        icon="i-lucide-square-play"
+        @click="test"
       />
 
       <UButton
