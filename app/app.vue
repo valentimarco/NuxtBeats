@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CommandPaletteGroup, CommandPaletteItem, NavigationMenuItem } from '@nuxt/ui'
+import type { CommandPaletteGroup, CommandPaletteItem, NavigationMenuItem } from "@nuxt/ui"
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -16,39 +16,39 @@ defineShortcuts({
 const navItems = computed(() => [
   [
     {
-      label: 'Home',
-      icon: 'i-lucide-home',
-      to: localePath('index'),
+      label: "Home",
+      icon: "i-lucide-home",
+      to: localePath("index"),
     },
     {
-      label: 'Discover',
-      icon: 'i-lucide-compass',
-      to: localePath('discover'),
+      label: "Discover",
+      icon: "i-lucide-compass",
+      to: localePath("discover"),
     },
   ],
   [
     {
-      label: 'Library',
-      icon: 'i-lucide-library',
-      type: 'label',
+      label: "Library",
+      icon: "i-lucide-library",
+      type: "label",
     },
     {
-      label: 'Recent',
-      icon: 'i-lucide-clock',
-      to: localePath('recent'),
+      label: "Recent",
+      icon: "i-lucide-clock",
+      to: localePath("recent"),
     },
     {
-      label: 'Favorites',
-      icon: 'i-lucide-heart',
-      to: localePath('favorites'),
+      label: "Favorites",
+      icon: "i-lucide-heart",
+      to: localePath("favorites"),
     },
     {
-      label: 'Playlists',
-      icon: 'i-lucide-list-music',
+      label: "Playlists",
+      icon: "i-lucide-list-music",
       children: playlists.value.map(p => ({
         label: p.name,
-        icon: 'i-lucide-music',
-        to: localePath({ name: 'playlists-uuid', params: { uuid: p.id } }),
+        icon: "i-lucide-music",
+        to: localePath({ name: "playlists-uuid", params: { uuid: p.id } }),
       })),
     },
   ],
@@ -56,10 +56,10 @@ const navItems = computed(() => [
 
 const searchGroups = computedAsync(async () => [
   {
-    id: 'sections',
-    label: t('sections.title'),
+    id: "sections",
+    label: t("sections.title"),
     items: navItems.value.flat().reduce<CommandPaletteItem[]>((acc, item) => {
-      if ('children' in item && item.children) {
+      if ("children" in item && item.children) {
         acc.push(...item.children.map(child => ({
           ...child,
           onSelect: async () => {
@@ -81,26 +81,28 @@ const searchGroups = computedAsync(async () => [
     }, []),
   },
   {
-    id: 'actions',
-    label: t('actions.title'),
+    id: "actions",
+    label: t("actions.title"),
   },
 ] satisfies CommandPaletteGroup<CommandPaletteItem>[], [])
 </script>
 
 <template>
   <UApp>
-    <NuxtLoadingIndicator
-      :duration="3000" :throttle="300"
-      color="repeating-linear-gradient(to right, rgb(var(--color-primary-400)) 0%,rgb(var(--color-primary-900)) 100%)" />
+    <NuxtLoadingIndicator :duration="3000" :throttle="300"
+                          color="repeating-linear-gradient(to right, rgb(var(--color-primary-400)) 0%,rgb(var(--color-primary-900)) 100%)" />
     <div class="fixed inset-0 flex scroll-smooth min-h-dvh antialiased transition-colors">
-      <aside class="flex-col h-full shrink-0 gap-4 w-full items-start scroll-pr-1 transition-[width] duration-300 p-2 max-w-64 flex ring ring-(--ui-border)">
+      <aside
+        class="flex-col h-full shrink-0 gap-4 w-full items-start scroll-pr-1 transition-[width] duration-300 p-2 max-w-64 flex ring ring-(--ui-border)">
         <div class="flex gap-2 items-end justify-between px-1 w-full">
           <ClientOnly fallbackTag="div">
-            <NuxtImg height="40" class="h-10 w-auto" alt="App Logo" quality="100" format="webp" loading="eager" crossorigin="anonymous" />
+            <NuxtImg height="40" class="h-10 w-auto" alt="App Logo" quality="100" format="webp" loading="eager"
+                     crossorigin="anonymous" />
           </ClientOnly>
           <span class="text-2xs font-bold text-(--ui-text-highlighted)">v{{ version }}</span>
         </div>
-        <UModal v-model:open="searchOpen" :title="$t('modals.search.title')" :description="$t('modals.search.description')">
+        <UModal v-model:open="searchOpen" :title="$t('modals.search.title')"
+                :description="$t('modals.search.description')">
           <UButton variant="subtle" color="neutral" block :label="`${$t('button.search')}...`"
                    leadingIcon="i-tabler-search" class="gap-2" @click="searchOpen = true">
             <template #trailing>

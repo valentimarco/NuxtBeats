@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app'
+import type { NuxtError } from "#app"
 
 const { error } = defineProps<{
   error: NuxtError
@@ -13,7 +13,7 @@ watchDeep(() => error, (err) => {
   console.log(err)
 }, { immediate: true })
 
-const handleError = () => clearError({ redirect: localePath('index') })
+const handleError = () => clearError({ redirect: localePath("index") })
 </script>
 
 <template>

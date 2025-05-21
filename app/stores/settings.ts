@@ -1,6 +1,6 @@
-import type { Locale } from '#i18n'
+import type { Locale } from "#i18n"
 
-export const useSettingsStore = defineStore('Settings', () => {
+export const useSettingsStore = defineStore("Settings", () => {
   const isDark = useDark()
   const toggleDark = useToggle(isDark)
   const { locale, locales, setLocale, setLocaleCookie } = useI18n()

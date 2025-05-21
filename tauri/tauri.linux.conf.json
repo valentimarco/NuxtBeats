@@ -14,9 +14,7 @@
     ]
   },
   "bundle": {
-    "resources": [
-      "./linux-assets"
-    ]
+    "resources": []
   },
   "plugins": {}
 }

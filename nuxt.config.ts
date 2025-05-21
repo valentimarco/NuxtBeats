@@ -1,28 +1,28 @@
-import pkg from './package.json'
+import pkg from "./package.json"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    '@nuxt/ui',
-    '@nuxt/eslint',
-    '@nuxt/image',
-    '@nuxt/scripts',
-    '@nuxt/test-utils',
-    'nuxt-zod-i18n',
-    '@vueuse/nuxt',
-    '@vueuse/motion/nuxt',
-    '@pinia/nuxt',
-    '@nuxtjs/i18n',
-    'compodium',
+    "@nuxt/ui",
+    "@nuxt/eslint",
+    "@nuxt/image",
+    "@nuxt/scripts",
+    "@nuxt/test-utils",
+    "nuxt-zod-i18n",
+    "@vueuse/nuxt",
+    "@vueuse/motion/nuxt",
+    "@pinia/nuxt",
+    "@nuxtjs/i18n",
+    "compodium",
   ],
 
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
 
   ssr: false,
 
-  devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
+  devServer: { host: process.env.TAURI_DEV_HOST || "localhost" },
 
   vite: {
     // Better support for Tauri CLI output
@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     // Enable environment variables
     // Additional environment variables can be found at
     // https://tauri.app/2/reference/environment-variables/
-    envPrefix: ['VITE_', 'TAURI_'],
+    envPrefix: ["VITE_", "TAURI_"],
     server: {
       strictPort: true,
     },
@@ -43,19 +43,19 @@ export default defineNuxtConfig({
   typescript: {
     tsConfig: {
       compilerOptions: {
-        types: ['vitest/globals'],
+        types: ["vitest/globals"],
       },
     },
   },
 
   app: {
     pageTransition: {
-      name: 'page',
-      mode: 'out-in',
+      name: "page",
+      mode: "out-in",
     },
     layoutTransition: {
-      name: 'layout',
-      mode: 'out-in',
+      name: "layout",
+      mode: "out-in",
     },
   },
 
@@ -69,10 +69,10 @@ export default defineNuxtConfig({
   },
 
   future: {
-    compatibilityVersion: 4
+    compatibilityVersion: 4,
   },
 
-  compatibilityDate: '2024-11-27',
+  compatibilityDate: "2024-11-27",
 
   runtimeConfig: {
     public: {
@@ -85,40 +85,40 @@ export default defineNuxtConfig({
   },
 
   icon: {
-    serverBundle: 'local',
+    serverBundle: "local",
   },
 
   colorMode: {
-    classSuffix: '',
-    preference: 'system',
-    fallback: 'light',
+    classSuffix: "",
+    preference: "system",
+    fallback: "light",
   },
 
   zodI18n: {
     dateFormat: {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     },
     localeCodesMapping: {
-      'en-GB': 'en',
-      'en-US': 'en',
-      'it-IT': 'it',
-      'es-ES': 'es',
-      'fr-FR': 'fr',
-      'de-DE': 'de',
+      "en-GB": "en",
+      "en-US": "en",
+      "it-IT": "it",
+      "es-ES": "es",
+      "fr-FR": "fr",
+      "de-DE": "de",
     },
   },
 
   i18n: {
-    baseUrl: '',
+    baseUrl: "",
     bundle: {
       optimizeTranslationDirective: false,
     },
     experimental: {
       typedPages: true,
-      typedOptionsAndMessages: 'default',
-      generatedLocaleFilePathFormat: 'off',
+      typedOptionsAndMessages: "default",
+      generatedLocaleFilePathFormat: "off",
       alternateLinkCanonicalQueries: true,
     },
     compilation: {
@@ -126,45 +126,45 @@ export default defineNuxtConfig({
     },
     locales: [
       {
-        code: 'en',
-        language: 'en-GB',
-        name: 'English',
-        file: 'en-GB.json',
+        code: "en",
+        language: "en-GB",
+        name: "English",
+        file: "en-GB.json",
         isCatchallLocale: true,
       },
       {
-        code: 'it',
-        language: 'it-IT',
-        name: 'Italiano',
-        file: 'it-IT.json',
+        code: "it",
+        language: "it-IT",
+        name: "Italiano",
+        file: "it-IT.json",
       },
       {
-        code: 'es',
-        language: 'es-ES',
-        name: 'Español',
-        file: 'es-ES.json',
+        code: "es",
+        language: "es-ES",
+        name: "Español",
+        file: "es-ES.json",
       },
       {
-        code: 'fr',
-        language: 'fr-FR',
-        name: 'Français',
-        file: 'fr-FR.json',
+        code: "fr",
+        language: "fr-FR",
+        name: "Français",
+        file: "fr-FR.json",
       },
       {
-        code: 'de',
-        language: 'de-DE',
-        name: 'Deutsch',
-        file: 'de-DE.json',
+        code: "de",
+        language: "de-DE",
+        name: "Deutsch",
+        file: "de-DE.json",
       },
     ],
     lazy: true,
-    defaultLocale: 'en',
-    strategy: 'no_prefix',
+    defaultLocale: "en",
+    strategy: "no_prefix",
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'i18n_redirected',
+      cookieKey: "i18n_redirected",
       alwaysRedirect: true,
-      redirectOn: 'root',
+      redirectOn: "root",
     },
   },
 

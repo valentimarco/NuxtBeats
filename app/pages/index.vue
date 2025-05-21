@@ -1,10 +1,8 @@
 <script setup lang="ts">
-
-const test = async () => {
+async function test() {
   const res = await commands.greet("hello from javascript")
   console.log(res)
 }
-
 </script>
 
 <template>
@@ -14,27 +12,13 @@ const test = async () => {
     </h1>
 
     <div class="flex items-center gap-2">
-      <UButton
-        label="Documentation"
-        icon="i-lucide-square-play"
-        to="https://ui.nuxt.com/getting-started/installation/nuxt"
-        target="_blank"
-      />
+      <UButton label="Documentation" icon="i-lucide-square-play"
+               to="https://ui.nuxt.com/getting-started/installation/nuxt" target="_blank" />
 
-      <UButton
-        label="Documentation"
-        icon="i-lucide-square-play"
-        @click="test"
-      />
+      <UButton label="Documentation" icon="i-lucide-square-play" @click="test" />
 
-      <UButton
-        label="GitHub"
-        color="neutral"
-        variant="outline"
-        icon="i-simple-icons-github"
-        to="https://github.com/nuxt/ui"
-        target="_blank"
-      />
+      <UButton label="GitHub" color="neutral" variant="outline" icon="i-simple-icons-github"
+               to="https://github.com/nuxt/ui" target="_blank" />
     </div>
   </div>
 </template>
