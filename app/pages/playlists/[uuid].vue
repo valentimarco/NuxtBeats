@@ -1,8 +1,16 @@
 <script setup lang="ts">
-const { playlists } = storeToRefs(useDataStore())
+definePageMeta({
+  middleware: [async (to) => {
+    const { playlists } = await usePlaylists()
+    const uuid = (to.params as { uuid: string }).uuid
+    if (!playlists.value.some(i => i.id === uuid)) return abortNavigation({ statusCode: 404, statusMessage: "Playlist not found" })
+  }],
+})
+
+const { playlists } = await usePlaylists()
 const route = useRoute()
 
-const playlist = computed(() => playlists.value.find(i => i.id === (route.params as Record<string, any>).uuid))
+const playlist = computed(() => playlists.value.find(i => i.id === (route.params as { uuid: string }).uuid))
 </script>
 
 <template>

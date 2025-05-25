@@ -26,7 +26,7 @@ async fn setup(app: &AppHandle) {
 pub fn run() {
     let builder = Builder::<tauri::Wry>::new()
         // Then register them (separated by a comma)
-        .typ::<command::Playlists>()
+        .typ::<command::Playlist>()
         .commands(collect_commands![command::get_playlists,]);
     #[cfg(debug_assertions)] // <- Only export on non-release builds
     builder

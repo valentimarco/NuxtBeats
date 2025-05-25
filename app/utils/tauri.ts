@@ -5,7 +5,7 @@
 
 
 export const commands = {
-async getPlaylists() : Promise<Result<Playlists[], Error>> {
+async getPlaylists() : Promise<Result<Playlist[], Error>> {
     try {
     return { status: "ok", data: await TAURI_INVOKE("get_playlists") };
 } catch (e) {
@@ -27,7 +27,7 @@ async getPlaylists() : Promise<Result<Playlists[], Error>> {
 
 export type Duration = { secs: number; nanos: number }
 export type Error = { Runtime: string } | { IO: string } | { Mutex: string } | { Command: string } | { Timeout: Duration }
-export type Playlists = { id: string; name: string; description: string; cover: string[] }
+export type Playlist = { id: string; name: string; description: string; cover: string[]; tracks: number }
 
 /** tauri-specta globals **/
 

@@ -1,7 +1,7 @@
 {
   "name": "nuxtbeats",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "A starter template for building cross-platform desktop applications with Nuxt and Tauri.",
   "scripts": {
