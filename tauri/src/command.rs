@@ -1,11 +1,10 @@
 use specta::Type;
 use tokio::sync::Mutex;
 
-use rustypipe::model::Thumbnail;
 use serde::Serialize;
 use tauri::State;
 
-use crate::{error::Error, error::Result, AppState};
+use crate::{error::Result, AppState};
 
 #[derive(Serialize, Type)]
 pub struct Playlists {

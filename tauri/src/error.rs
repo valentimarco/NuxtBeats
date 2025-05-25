@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use specta::Type;
 use std::time::Duration;
 use thiserror::Error;
