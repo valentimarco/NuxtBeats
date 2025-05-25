@@ -1,37 +1,55 @@
+use api::MusicApi;
 use specta_typescript::Typescript;
+use tauri::{AppHandle, Manager};
 use tauri_specta::{collect_commands, Builder};
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-#[specta::specta]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+use tokio::sync::Mutex;
+mod api;
+mod command;
+mod error;
+mod handler;
+mod player;
+
+#[derive(Clone)]
+struct AppState {
+    music_api: MusicApi,
+}
+
+// type State = tauri::State<'a, Mutex<AppState>>;
+
+async fn setup(app: &AppHandle) {
+    let music_api = MusicApi::new().await;
+    app.manage(Mutex::new(AppState { music_api }));
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let builder = Builder::<tauri::Wry>::new()
         // Then register them (separated by a comma)
-        .commands(collect_commands![greet,]);
-
+        .typ::<command::Playlists>()
+        .commands(collect_commands![command::get_playlists,]);
     #[cfg(debug_assertions)] // <- Only export on non-release builds
     builder
-        .export(Typescript::default(), "../app/utils/tauri.ts")
+        .export(
+            Typescript::default().bigint(specta_typescript::BigIntExportBehavior::Number),
+            "../app/utils/tauri.ts",
+        )
         .expect("Failed to export typescript bindings");
 
     tauri::Builder::default()
         // and finally tell Tauri how to invoke them
-        .invoke_handler(builder.invoke_handler())
         .setup(move |app| {
             // This is also required if you want to use events
-            builder.mount_events(app);
+            //builder.mount_events(app);
 
+            // Setup app
+            tauri::async_runtime::block_on(setup(app.handle()));
             Ok(())
         })
+        .invoke_handler(builder.invoke_handler())
         // on an actual app, remove the string argument
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-
 
     // tauri::Builder::default()
     //     .plugin(tauri_plugin_shell::init())

@@ -5,7 +5,9 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const { version } = useRuntimeConfig().public
 const searchOpen = ref(false)
+const { fetchPlaylists } = useDataStore()
 const { playlists } = storeToRefs(useDataStore())
+await callOnce(fetchPlaylists)
 
 defineShortcuts({
   ctrl_f: () => {
@@ -47,7 +49,12 @@ const navItems = computed(() => [
       icon: "i-lucide-list-music",
       children: playlists.value.map(p => ({
         label: p.name,
-        icon: "i-lucide-music",
+        avatar: {
+          icon: "i-lucide-music",
+          src: p.cover[0],
+          size: "md" as const,
+          alt: p.name,
+        },
         to: localePath({ name: "playlists-uuid", params: { uuid: p.id } }),
       })),
     },
@@ -90,21 +97,21 @@ const searchGroups = computedAsync(async () => [
 <template>
   <UApp>
     <NuxtLoadingIndicator :duration="3000" :throttle="300"
-                          color="repeating-linear-gradient(to right, rgb(var(--color-primary-400)) 0%,rgb(var(--color-primary-900)) 100%)" />
+      color="repeating-linear-gradient(to right, rgb(var(--color-primary-400)) 0%,rgb(var(--color-primary-900)) 100%)" />
     <div class="fixed inset-0 flex scroll-smooth min-h-dvh antialiased transition-colors">
       <aside
         class="flex-col h-full shrink-0 gap-4 w-full items-start scroll-pr-1 transition-[width] duration-300 p-2 max-w-64 flex ring ring-(--ui-border)">
         <div class="flex gap-2 items-end justify-between px-1 w-full">
           <ClientOnly fallbackTag="div">
             <NuxtImg height="40" class="h-10 w-auto" alt="App Logo" quality="100" format="webp" loading="eager"
-                     crossorigin="anonymous" />
+              crossorigin="anonymous" />
           </ClientOnly>
           <span class="text-2xs font-bold text-(--ui-text-highlighted)">v{{ version }}</span>
         </div>
         <UModal v-model:open="searchOpen" :title="$t('modals.search.title')"
-                :description="$t('modals.search.description')">
+          :description="$t('modals.search.description')">
           <UButton variant="subtle" color="neutral" block :label="`${$t('button.search')}...`"
-                   leadingIcon="i-tabler-search" class="gap-2" @click="searchOpen = true">
+            leadingIcon="i-tabler-search" class="gap-2" @click="searchOpen = true">
             <template #trailing>
               <div class="ms-auto flex gap-0.5 items-center">
                 <UKbd>Ctrl</UKbd>
@@ -117,11 +124,11 @@ const searchGroups = computedAsync(async () => [
           </template>
         </UModal>
         <UNavigationMenu orientation="vertical" :items="navItems" highlight highlightColor="primary"
-                         class="data-[orientation=vertical]:w-full data-[orientation=vertical]:grow overflow-y-auto select-none" :ui="{
-                           list: 'space-y-1',
-                           link: `data-active:bg-(--ui-bg-elevated) rounded-lg`,
-                           childList: `space-y-1 mt-1`,
-                         }" />
+          class="data-[orientation=vertical]:w-full data-[orientation=vertical]:grow overflow-y-auto select-none" :ui="{
+            list: 'space-y-1',
+            link: `data-active:bg-(--ui-bg-elevated) rounded-lg`,
+            childList: `space-y-1 mt-1`,
+          }" />
       </aside>
       <NuxtPage />
     </div>
