@@ -10,11 +10,18 @@ definePageMeta({
 const { playlists } = await usePlaylists()
 const route = useRoute()
 
-const playlist = computed(() => playlists.value.find(i => i.id === (route.params as { uuid: string }).uuid))
+const playlist = computed(() => playlists.value.find(i => i.id === (route.params as { uuid: string }).uuid)!)
 </script>
 
 <template>
-  <div class="size-full rounded-none flex flex-col overflow-auto p-2 md:p-4">
-    {{ playlist }}
-  </div>
+  <section class="size-full rounded-none flex flex-col overflow-auto p-2 md:p-4">
+    <div class="flex items-end gap-2">
+      <NuxtImg height="192" width="192" class="size-48 rounded-md"
+               :alt="playlist.name" quality="100" :src="playlist.cover[0]" />
+      <h2 class="font-bold text-lg">
+        {{ playlist.name }}
+      </h2>
+      <h3>{{ playlist.description }}</h3>
+    </div>
+  </section>
 </template>

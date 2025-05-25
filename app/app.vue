@@ -98,12 +98,11 @@ const searchGroups = computedAsync(async () => [
         :toaster="{ duration: 2000, position: 'bottom-right' }">
     <NuxtLoadingIndicator :duration="3000" :throttle="300"
                           color="repeating-linear-gradient(to right, rgb(var(--color-primary-400)) 0%,rgb(var(--color-primary-900)) 100%)" />
-    <div class="fixed inset-0 flex scroll-smooth min-h-dvh antialiased transition-colors">
+    <main class="fixed inset-0 flex scroll-smooth min-h-dvh antialiased transition-colors">
       <aside
         class="flex-col h-full shrink-0 gap-4 w-full items-start scroll-pr-1 transition-[width] duration-300 p-2 max-w-64 flex ring ring-(--ui-border)">
         <div class="flex gap-2 items-end justify-between px-1 w-full">
-          <NuxtImg height="40" class="h-8 w-auto" alt="App Logo" quality="100" format="webp" loading="eager"
-                   crossorigin="anonymous" />
+          <NuxtImg height="40" class="h-8 w-auto" alt="App Logo" quality="100" src="/logo.webp" />
           <span class="text-2xs font-bold text-(--ui-text-highlighted)">v{{ version }}</span>
         </div>
         <UModal v-model:open="searchOpen" :title="$t('modals.search.title')"
@@ -129,6 +128,6 @@ const searchGroups = computedAsync(async () => [
                          }" />
       </aside>
       <NuxtPage />
-    </div>
+    </main>
   </UApp>
 </template>

@@ -18,7 +18,7 @@ const handleError = () => clearError({ redirect: localePath("index") })
 
 <template>
   <NuxtLayout>
-    <div class="flex min-h-dvh w-screen flex-col items-center justify-evenly gap-8 text-center">
+    <main class="flex min-h-dvh w-screen flex-col items-center justify-evenly gap-8 text-center">
       <div class="flex flex-col gap-4 text-5xl font-bold">
         <span class="text-(--ui-error)">{{ error.statusCode }}</span>
         <span>{{ $t('error.routes.notAccessible') }}</span>
@@ -29,6 +29,6 @@ const handleError = () => clearError({ redirect: localePath("index") })
       <UButton color="error" size="xl" @click="handleError">
         {{ $t('button.backHome') }}
       </UButton>
-    </div>
+    </main>
   </NuxtLayout>
 </template>

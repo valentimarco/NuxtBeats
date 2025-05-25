@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/i18n",
     "compodium",
+    "nuxt-security",
   ],
 
   css: ["~/assets/css/main.css"],
@@ -33,6 +34,11 @@ export default defineNuxtConfig({
     envPrefix: ["VITE_", "TAURI_"],
     server: {
       strictPort: true,
+    },
+    build: {
+      rollupOptions: {
+        external: ["sharp"],
+      },
     },
   },
 
@@ -165,6 +171,50 @@ export default defineNuxtConfig({
       cookieKey: "i18n_redirected",
       alwaysRedirect: true,
       redirectOn: "root",
+    },
+  },
+
+  security: {
+    enabled: process.env.NODE_ENV?.startsWith("prod"),
+    csrf: false,
+    nonce: true,
+    corsHandler: {
+      origin: ["http://localhost:3000", "(.*)\\.gstatic\\.com", "gstatic\\.com"],
+      useRegExp: true,
+    },
+    headers: {
+      crossOriginEmbedderPolicy: "unsafe-none",
+      crossOriginResourcePolicy: "cross-origin",
+      referrerPolicy: "strict-origin-when-cross-origin",
+      contentSecurityPolicy: {
+        "upgrade-insecure-requests": false,
+        "img-src": [
+          "'self'",
+          "data:",
+          "https:",
+          "blob:",
+        ],
+        "script-src": [
+          "'self'",
+          "'unsafe-inline'",
+          "'nonce-{{nonce}}'",
+          "'strict-dynamic'",
+          "'sha256-tYCcUbFfjZ9QESuTWESGWrFg2SmiEdyD2MYUfRWUgK0='",
+        ],
+        "worker-src": [
+          "'self'",
+          "blob:",
+        ],
+        "script-src-attr": [
+          "'unsafe-hashes'",
+          "'sha256-jp2rwKRAEWWbK5cz0grQYZbTZyihHbt00dy2fY8AuWY='",
+        ],
+        "style-src": [
+          "'self'",
+          "https:",
+          "'unsafe-inline'",
+        ],
+      },
     },
   },
 
