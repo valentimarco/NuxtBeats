@@ -5,23 +5,27 @@
 .nitro
 .cache
 dist
+build1.zip
 
 # Node dependencies
 node_modules
 
 # Logs
 logs
-*.log
+*.log*
+.eslintcache
 
 # Misc
 .DS_Store
 .fleet
 .idea
+.unlighthouse
 
 # Local env files
 .env
 .env.*
 !.env.example
 
-.eslintcache
-tauri/cookies.txt
+# Tauri
+.cargo
+src-tauri/target

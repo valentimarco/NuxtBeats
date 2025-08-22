@@ -1,13 +1,11 @@
 {
-  "oxc.enable": true,
-  "typescript.tsdk": "node_modules\\typescript\\lib",
   "prettier.enable": false,
   "makefile.configureOnOpen": false,
   "eslint.useFlatConfig": true,
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "always"
   },
   "eslint.rules.customizations": [
     {
@@ -70,16 +68,21 @@
     "*.css": "tailwindcss"
   },
   "editor.quickSuggestions": {
-    "strings": "on"
+    "strings": true
   },
   "tailwindCSS.classAttributes": [
     "class",
+    "activeClass",
+    "inactiveClass",
+    "inputClass",
     "ui"
   ],
+  "typescript.tsdk": "node_modules/typescript/lib",
   "i18n-ally.localesPaths": [
     "i18n",
     "i18n/locales"
   ],
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.sourceLanguage": "it-IT"
+  "i18n-ally.sourceLanguage": "it-IT",
+  "todo-tree.tree.scanMode": "workspace"
 }
