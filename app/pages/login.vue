@@ -14,7 +14,7 @@ async function loginToYoutubeMusic() {
     height: 600,
     visible: true,
     focus: true,
-    skipTaskbar: true,
+    resizable: false,
   })
 
   webview.listen('tauri://error', (e) => {
@@ -32,7 +32,7 @@ async function loginToYoutubeMusic() {
     <h1 class="text-3xl sm:text-4xl text-pretty font-bold font-heading">
       Login to Youtube Music
     </h1>
-    <UButton variant="subtle" class="justify-center" @click="loginToYoutubeMusic">
+    <UButton variant="subtle" icon="lucide:cookie" class="justify-center" @click="loginToYoutubeMusic">
       Obtain Cookies
     </UButton>
   </div>
