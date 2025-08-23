@@ -78,7 +78,7 @@ export default defineNuxtConfig({
         port: 3001,
       },
       watch: {
-        ignored: ['**/src-tauri/**'],
+        ignored: ['**/tauri/**'],
       },
     },
     build: {

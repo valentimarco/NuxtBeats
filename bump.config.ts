@@ -7,7 +7,7 @@ export default defineConfig({
   push: false,
   files: [
     'package.json',
-    'src-tauri/tauri.conf.json',
-    'src-tauri/Cargo.toml',
+    'tauri/tauri.conf.json',
+    'tauri/Cargo.toml',
   ],
 })

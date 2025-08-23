@@ -3,11 +3,11 @@ name = "nuxt-beats"
 version = "0.0.1"
 description = "Desktop music player made with Nuxt and Tauri"
 authors = [
-  "zAlweNy26",
-  "valentimarco"
+  "valentimarco",
+  "zAlweNy26"
 ]
 license = "MIT"
-repository = "https://github.com/zAlweNy26/nuxt-beats"
+repository = "https://github.com/valentimarco/NuxtBeats"
 edition = "2021"
 
 [lib]

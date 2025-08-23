@@ -1,7 +1,7 @@
 export default defineAppConfig({
   app: {
     name: 'NuxtBeats',
-    repo: 'https://github.com/zAlweNy26/nuxt-beats',
+    repo: 'https://github.com/valentimarco/NuxtBeats',
   },
   ui: {
     colors: {
