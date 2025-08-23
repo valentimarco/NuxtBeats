@@ -3,19 +3,21 @@ definePageMeta({
   layout: 'blank',
 })
 
-const { WebviewWindow } = useTauriWebview()
+const { WebviewWindow } = useTauriWebviewWindow()
+const { login } = useAuth()
 const toast = useToast()
 
 async function loginToYoutubeMusic() {
-  const webview = new WebviewWindow(Date.now().toString(), {
-    title: 'Youtube Login',
+  const webview = new WebviewWindow('youtube-login', {
     url: 'https://music.youtube.com',
+    parent: 'main',
     width: 800,
     height: 600,
-    visible: true,
-    focus: true,
-    resizable: false,
+    x: 0,
+    y: 0,
   })
+
+  webview.listen('tauri://close-requested', login)
 
   webview.listen('tauri://error', (e) => {
     toast.add({

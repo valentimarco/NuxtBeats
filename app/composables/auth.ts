@@ -9,6 +9,7 @@ export function useAuth() {
   const isLogged = useState('isLogged', () => false)
   const userData = useState<UserData | undefined>('userData')
 
+  const { invoke } = useTauriCore()
   const { listen } = useTauriEvent()
 
   const listeners: UnlistenFn[] = []
@@ -32,8 +33,13 @@ export function useAuth() {
     }
   })
 
+  async function login() {
+    await invoke('get_ytmusic_cookies', { label: 'youtube-login' })
+  }
+
   return {
     isLogged: readonly(isLogged),
     userData: readonly(userData),
+    login,
   }
 }
