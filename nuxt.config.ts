@@ -42,12 +42,6 @@ export default defineNuxtConfig({
       scan: true,
       includeCustomCollections: true,
     },
-    customCollections: [
-      {
-        prefix: 'local',
-        dir: './app/assets/icons',
-      },
-    ],
   },
 
   svgo: {
