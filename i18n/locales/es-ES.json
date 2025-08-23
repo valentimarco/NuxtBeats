@@ -1,0 +1,20 @@
+{
+    "aria": {
+        "toggle": "Cambiar",
+        "more": "Más",
+        "copy": "Copiar al portapapeles",
+        "window": {
+            "minimize": "Minimizar",
+            "maximize": "Maximizar",
+            "close": "Cerrar"
+        }
+    },
+    "theme": {
+        "light": "Modo Claro",
+        "dark": "Modo Oscuro",
+        "toggle": "@:aria.toggle tema"
+    },
+    "language": {
+        "toggle": "@:aria.toggle idioma"
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "aria": {
+    "toggle": "Cambia",
+    "more": "Altro",
+    "copy": "Copia negli appunti",
+    "window": {
+      "minimize": "Riduci a icona",
+      "maximize": "Espandi",
+      "close": "Chiudi"
+    }
+  },
+  "theme": {
+    "light": "Modalità Chiara",
+    "dark": "Modalità Scura",
+    "toggle": "@:aria.toggle tema"
+  },
+  "language": {
+    "toggle": "@:aria.toggle lingua"
+  }
+}

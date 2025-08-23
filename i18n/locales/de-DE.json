@@ -1,0 +1,20 @@
+{
+    "aria": {
+        "toggle": "Umschalten",
+        "more": "Mehr",
+        "copy": "In die Zwischenablage kopieren",
+        "window": {
+            "minimize": "Minimieren",
+            "maximize": "Maximieren",
+            "close": "Schließen"
+        }
+    },
+    "theme": {
+        "light": "Heller Modus",
+        "dark": "Dunkler Modus",
+        "toggle": "@:aria.toggle Thema"
+    },
+    "language": {
+        "toggle": "@:aria.toggle Sprache"
+    }
+}

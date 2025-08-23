@@ -32,11 +32,11 @@ const isMaximized = computedAsync(() => window.isMaximized(), false)
     <SvgoLogo v-else :filled="true" :font-controlled="false" data-tauri-drag-region class="size-6 mx-2" />
     <UButtonGroup size="lg">
       <UButton icon="lucide:minus" variant="ghost" color="neutral"
-               class="md:px-4 rounded-none hover:bg-muted" aria-label="Minimize" @click="window.minimize()" />
+               class="md:px-4 rounded-none hover:bg-muted" :aria-label="$t('aria.window.minimize')" @click="window.minimize()" />
       <UButton :icon="isMaximized ? 'lucide:minimize-2' : 'lucide:maximize-2'" variant="ghost" color="neutral"
-               class="md:px-4 rounded-none hover:bg-muted" aria-label="Maximize" @click="window.toggleMaximize()" />
+               class="md:px-4 rounded-none hover:bg-muted" :aria-label="$t('aria.window.maximize')" @click="window.toggleMaximize()" />
       <UButton icon="lucide:x" variant="ghost" color="error"
-               class="md:px-4 rounded-none" aria-label="Close" @click="window.close()" />
+               class="md:px-4 rounded-none" :aria-label="$t('aria.window.close')" @click="window.close()" />
     </UButtonGroup>
   </div>
 </template>

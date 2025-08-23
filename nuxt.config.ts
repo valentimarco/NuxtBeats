@@ -2,10 +2,15 @@ import { version } from './package.json'
 
 export default defineNuxtConfig({
   modules: [
-    '@vueuse/nuxt',
-    '@nuxt/ui',
+    'motion-v/nuxt',
     'nuxt-svgo',
+    '@vueuse/nuxt',
+    '@pinia/nuxt',
+    '@nuxtjs/i18n',
+    '@nuxt/ui',
+    '@nuxt/image',
     '@nuxt/eslint',
+    '@compodium/nuxt',
   ],
 
   app: {
@@ -33,6 +38,10 @@ export default defineNuxtConfig({
 
   icon: {
     serverBundle: 'local',
+    clientBundle: {
+      scan: true,
+      includeCustomCollections: true,
+    },
     customCollections: [
       {
         prefix: 'local',
@@ -51,22 +60,6 @@ export default defineNuxtConfig({
     modules: 'app/modules',
   },
 
-  imports: {
-    presets: [
-      {
-        from: 'zod',
-        imports: [
-          'z',
-          {
-            name: 'infer',
-            as: 'zInfer',
-            type: true,
-          },
-        ],
-      },
-    ],
-  },
-
   vite: {
     clearScreen: false,
     envPrefix: ['VITE_', 'TAURI_'],
@@ -74,7 +67,7 @@ export default defineNuxtConfig({
       strictPort: true,
       hmr: {
         protocol: 'ws',
-        host: '0.0.0.0',
+        host: 'localhost',
         port: 3001,
       },
       watch: {
@@ -104,7 +97,60 @@ export default defineNuxtConfig({
     },
   },
 
+  i18n: {
+    experimental: {
+      typedPages: true,
+      typedOptionsAndMessages: 'default',
+    },
+    compilation: {
+      strictMessage: false,
+    },
+    locales: [
+      {
+        code: 'en',
+        language: 'en-GB',
+        name: 'English',
+        file: 'en-GB.json',
+        isCatchallLocale: true,
+      },
+      {
+        code: 'it',
+        language: 'it-IT',
+        name: 'Italiano',
+        file: 'it-IT.json',
+      },
+      {
+        code: 'es',
+        language: 'es-ES',
+        name: 'Español',
+        file: 'es-ES.json',
+      },
+      {
+        code: 'fr',
+        language: 'fr-FR',
+        name: 'Français',
+        file: 'fr-FR.json',
+      },
+      {
+        code: 'de',
+        language: 'de-DE',
+        name: 'Deutsch',
+        file: 'de-DE.json',
+      },
+    ],
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true,
+      redirectOn: 'root',
+    },
+  },
+
   colorMode: {
+    preference: 'system',
+    fallback: 'light',
     disableTransition: false,
   },
 
@@ -114,6 +160,7 @@ export default defineNuxtConfig({
 
   experimental: {
     typedPages: true,
+    emitRouteChunkError: 'automatic-immediate',
   },
 
   compatibilityDate: 'latest',

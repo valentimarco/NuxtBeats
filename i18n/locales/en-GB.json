@@ -1,0 +1,20 @@
+{
+  "aria": {
+    "toggle": "Toggle",
+    "more": "More",
+    "copy": "Copy to clipboard",
+    "window": {
+      "minimize": "Minimize",
+      "maximize": "Maximize",
+      "close": "Close"
+    }
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "toggle": "@:aria.toggle theme"
+  },
+  "language": {
+    "toggle": "@:aria.toggle language"
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "aria": {
+        "toggle": "Basculer",
+        "more": "Plus",
+        "copy": "Copier dans le presse-papiers",
+        "window": {
+            "minimize": "Réduire",
+            "maximize": "Agrandir",
+            "close": "Fermer"
+        }
+    },
+    "theme": {
+        "light": "Mode clair",
+        "dark": "Mode sombre",
+        "toggle": "@:aria.toggle thème"
+    },
+    "language": {
+        "toggle": "@:aria.toggle langue"
+    }
+}
