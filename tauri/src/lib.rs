@@ -17,7 +17,7 @@ use tauri_plugin_store::{Store, StoreExt};
 
 use tauri_specta::{collect_commands, Builder};
 
-use crate::commands::init::{get_ytmusic_cookies, instance_ytmusic_api};
+use crate::commands::init::{get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic};
 
 use crate::{api::YoutubeMusicApi, error::Result};
 
@@ -33,7 +33,7 @@ pub fn run() {
         // Then register them (separated by a comma)
         // .typ::<command::Playlist>()
         // .events(collect_events![Auth])
-        .commands(collect_commands![get_ytmusic_cookies, instance_ytmusic_api, ]);
+        .commands(collect_commands![get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic]);
     #[cfg(debug_assertions)] // <- Only export on non-release builds
     builder_specta
         .export(

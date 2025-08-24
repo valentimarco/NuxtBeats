@@ -9,7 +9,6 @@ export function useAuth() {
   const isLogged = useState('isLogged', () => false)
   const userData = useState<UserData | undefined>('userData')
 
-  const { invoke } = useTauriCore()
   const { listen } = useTauriEvent()
 
   const listeners: UnlistenFn[] = []
@@ -21,9 +20,10 @@ export function useAuth() {
       await navigateTo('/')
     }))
 
-    listeners.push(await listen('auth:logout', () => {
+    listeners.push(await listen('auth:logout', async () => {
       userData.value = undefined
       isLogged.value = false
+      await navigateTo('/login')
     }))
   })
 
@@ -35,11 +35,11 @@ export function useAuth() {
   })
 
   async function login() {
-    await invoke('get_ytmusic_cookies', { label: 'youtube-login' })
+    await commands.getYtmusicCookies('youtube-login')
   }
 
   async function logout() {
-    await invoke('logout_ytmusic')
+    await commands.logoutYtmusic()
   }
 
   return {

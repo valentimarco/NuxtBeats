@@ -15,8 +15,10 @@ impl YoutubeMusicApi {
 
         client.user_auth_set_cookie_txt(&cookies).await?;
         client.user_auth_check_cookie().await?;
-
-        
         Ok(YoutubeMusicApi { client })
+    }
+
+    pub async fn logout(&self) -> bool {
+        self.client.user_auth_remove_cookie().await.is_ok()
     }
 }

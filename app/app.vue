@@ -1,14 +1,13 @@
 <script setup lang="ts">
 const appConfigDir = await useTauriPath().appConfigDir()
 const { LazyStore } = useTauriStore()
-const { invoke } = useTauriCore()
 const store = useState<InstanceType<typeof LazyStore>>('store', () => new LazyStore(`${appConfigDir}/store.json`))
 
 await store.value.init()
 
 await callOnce(async () => {
   const cookies = await store.value.get<string>('cookies')
-  if (cookies) await invoke('instance_ytmusic_api', { cookies })
+  if (cookies) await commands.instanceYtmusicApi(cookies)
 })
 </script>
 
