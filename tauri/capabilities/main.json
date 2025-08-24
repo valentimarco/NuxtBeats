@@ -33,6 +33,7 @@
     "fs:allow-document-read",
     "notification:default",
     "store:default",
-    "shell:default"
+    "shell:default",
+    "http:default"
   ]
 }

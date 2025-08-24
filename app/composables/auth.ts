@@ -15,9 +15,10 @@ export function useAuth() {
   const listeners: UnlistenFn[] = []
 
   tryOnMounted(async () => {
-    listeners.push(await listen('auth:login', (e) => {
+    listeners.push(await listen('auth:login', async (e) => {
       userData.value = e.payload as UserData
       isLogged.value = true
+      await navigateTo('/')
     }))
 
     listeners.push(await listen('auth:logout', () => {
@@ -37,9 +38,14 @@ export function useAuth() {
     await invoke('get_ytmusic_cookies', { label: 'youtube-login' })
   }
 
+  async function logout() {
+    await invoke('logout_ytmusic')
+  }
+
   return {
     isLogged: readonly(isLogged),
     userData: readonly(userData),
     login,
+    logout,
   }
 }

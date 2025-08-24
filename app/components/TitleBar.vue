@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import type { DropdownMenuItem } from '@nuxt/ui'
 
+const { isLogged, userData, logout } = useAuth()
+const window = useTauriWindow().getCurrentWindow()
+
 const items = ref<DropdownMenuItem[][]>([
   [
     {
@@ -14,12 +17,10 @@ const items = ref<DropdownMenuItem[][]>([
     {
       label: 'Logout',
       icon: 'i-lucide-log-out',
+      onSelect: logout,
     },
   ],
 ])
-
-const { isLogged, userData } = useAuth()
-const window = useTauriWindow().getCurrentWindow()
 
 const isMaximized = computedAsync(() => window.isMaximized(), false)
 </script>

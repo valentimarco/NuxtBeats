@@ -1,6 +1,7 @@
 import * as tauriApp from '@tauri-apps/api/app'
 import * as tauriCore from '@tauri-apps/api/core'
 import * as tauriEvent from '@tauri-apps/api/event'
+import * as tauriPath from '@tauri-apps/api/path'
 import * as tauriWebviewWindow from '@tauri-apps/api/webviewWindow'
 import * as tauriWindow from '@tauri-apps/api/window'
 import * as tauriFs from '@tauri-apps/plugin-fs'
@@ -12,6 +13,7 @@ import { addImports, addTemplate, defineNuxtModule } from 'nuxt/kit'
 const tauriModules = [
   { module: tauriApp, prefix: 'App', importPath: '@tauri-apps/api/app' },
   { module: tauriCore, prefix: 'Core', importPath: '@tauri-apps/api/core' },
+  { module: tauriPath, prefix: 'Path', importPath: '@tauri-apps/api/path' },
   { module: tauriEvent, prefix: 'Event', importPath: '@tauri-apps/api/event' },
   { module: tauriWebviewWindow, prefix: 'WebviewWindow', importPath: '@tauri-apps/api/webviewWindow' },
   { module: tauriWindow, prefix: 'Window', importPath: '@tauri-apps/api/window' },

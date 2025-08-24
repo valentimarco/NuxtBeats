@@ -10,6 +10,7 @@
         "@pinia/nuxt": "0.11.2",
         "@tauri-apps/api": "^2.8.0",
         "@tauri-apps/plugin-fs": "^2.4.2",
+        "@tauri-apps/plugin-http": "~2",
         "@tauri-apps/plugin-notification": "^2.3.1",
         "@tauri-apps/plugin-shell": "^2.3.0",
         "@tauri-apps/plugin-store": "^2.4.0",
@@ -638,6 +639,8 @@
     "@tauri-apps/cli-win32-x64-msvc": ["@tauri-apps/cli-win32-x64-msvc@2.8.1", "", { "os": "win32", "cpu": "x64" }, "sha512-KmiT0vI7FMBWfk5YDQg7+WcjzuMdeaHOQ7H0podZ7lyJg2qo2DpbGp8y+fMVCRsmvQx5bW6Cyh1ArfO1kkUInA=="],
 
     "@tauri-apps/plugin-fs": ["@tauri-apps/plugin-fs@2.4.2", "", { "dependencies": { "@tauri-apps/api": "^2.8.0" } }, "sha512-YGhmYuTgXGsi6AjoV+5mh2NvicgWBfVJHHheuck6oHD+HC9bVWPaHvCP0/Aw4pHDejwrvT8hE3+zZAaWf+hrig=="],
+
+    "@tauri-apps/plugin-http": ["@tauri-apps/plugin-http@2.5.2", "", { "dependencies": { "@tauri-apps/api": "^2.8.0" } }, "sha512-x1mQKHSLDk4mS2S938OTeyk8L7QyLpCrKZCZcjkljGsvTvRMojCvI9SeJ1kaxc7t8xSilkC7WdId8xER9TIGLg=="],
 
     "@tauri-apps/plugin-notification": ["@tauri-apps/plugin-notification@2.3.1", "", { "dependencies": { "@tauri-apps/api": "^2.8.0" } }, "sha512-7gqgfANSREKhh35fY1L4j3TUjUdePmU735FYDqRGeIf8nMXWpcx6j4FhN9/4nYz+m0mv79DCTPLqIPTySggGgg=="],
 
