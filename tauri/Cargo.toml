@@ -22,7 +22,7 @@ crate-type = [
 tauri-build = { version = "2.4.0", features = [] }
 
 [dependencies]
-tauri = { version = "2.8.2", features = [
+tauri = { version = "2.8.3", features = [
   "tray-icon",
   "specta"
 ] }
@@ -43,9 +43,8 @@ tauri-specta = { version = "=2.0.0-rc.21", features = [
   "typescript"
 ] }
 specta-typescript = "^0.0.9"
-serde = { version = "1", features = [ "derive" ] }
+serde = { version = "1.0.219", features = [ "derive" ] }
 rustypipe = { version = "0.11.4", features = [ "userdata" ] }
-tauri-plugin-http = "2"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-single-instance = "2.3.3"

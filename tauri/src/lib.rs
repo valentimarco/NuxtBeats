@@ -15,24 +15,23 @@ use tauri::{
 };
 use tauri_plugin_store::{Store, StoreExt};
 
-use tauri_specta::{collect_commands, Builder};
+use tauri_specta::{Builder, collect_commands};
 
 use crate::commands::init::{get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic};
 
 use crate::{api::YoutubeMusicApi, error::Result};
 
-struct AppState {
+pub struct AppState {
     store: Mutex<Arc<Store<Wry>>>,
     api: Mutex<Option<YoutubeMusicApi>>,
 }
-
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let builder_specta = Builder::<tauri::Wry>::new()
         // Then register them (separated by a comma)
         // .typ::<command::Playlist>()
-        // .events(collect_events![Auth])
+        // .events(collect_events![AuthLogin, AuthLogout])
         .commands(collect_commands![get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic]);
     #[cfg(debug_assertions)] // <- Only export on non-release builds
     builder_specta
@@ -53,10 +52,8 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_http::init())
-        .setup(|app| {
-            //define events
-            // builder_specta.mount_events(app);
+        .invoke_handler(builder_specta.invoke_handler())
+        .setup(move |app| {
             let store = Mutex::new(
                 app.store(
                     app.path()
@@ -67,6 +64,8 @@ pub fn run() {
                 )
                 .unwrap(),
             );
+
+            // builder_specta.mount_events(app);
 
             app.manage(AppState { store, api: Mutex::new(None) });
 
@@ -89,7 +88,6 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(builder_specta.invoke_handler())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

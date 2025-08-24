@@ -3,7 +3,7 @@ definePageMeta({
   layout: 'blank',
 })
 
-const { WebviewWindow } = useTauriWebviewWindow()
+const { WebviewWindow } = useTauriWindow()
 const { login } = useAuth()
 const toast = useToast()
 

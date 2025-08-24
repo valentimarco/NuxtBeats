@@ -2,14 +2,14 @@
 import type { DropdownMenuItem } from '@nuxt/ui'
 
 const { isLogged, userData, logout } = useAuth()
-const window = useTauriWindow().getCurrentWindow()
+const window = useTauriWindow().getCurrentWebviewWindow()
 
 const items = ref<DropdownMenuItem[][]>([
   [
     {
       label: 'Account',
       icon: 'i-lucide:user',
-      to: 'https://music.youtube.com',
+      to: 'https://music.youtube.com/@test',
       target: '_blank',
     },
   ],

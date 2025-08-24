@@ -1,26 +1,16 @@
-import * as tauriApp from '@tauri-apps/api/app'
-import * as tauriCore from '@tauri-apps/api/core'
-import * as tauriEvent from '@tauri-apps/api/event'
-import * as tauriPath from '@tauri-apps/api/path'
-import * as tauriWebviewWindow from '@tauri-apps/api/webviewWindow'
-import * as tauriWindow from '@tauri-apps/api/window'
-import * as tauriFs from '@tauri-apps/plugin-fs'
-import * as tauriNotification from '@tauri-apps/plugin-notification'
-import * as tauriShell from '@tauri-apps/plugin-shell'
-import * as tauriStore from '@tauri-apps/plugin-store'
 import { addImports, addTemplate, defineNuxtModule } from 'nuxt/kit'
 
 const tauriModules = [
-  { module: tauriApp, prefix: 'App', importPath: '@tauri-apps/api/app' },
-  { module: tauriCore, prefix: 'Core', importPath: '@tauri-apps/api/core' },
-  { module: tauriPath, prefix: 'Path', importPath: '@tauri-apps/api/path' },
-  { module: tauriEvent, prefix: 'Event', importPath: '@tauri-apps/api/event' },
-  { module: tauriWebviewWindow, prefix: 'WebviewWindow', importPath: '@tauri-apps/api/webviewWindow' },
-  { module: tauriWindow, prefix: 'Window', importPath: '@tauri-apps/api/window' },
-  { module: tauriShell, prefix: 'Shell', importPath: '@tauri-apps/plugin-shell' },
-  { module: tauriNotification, prefix: 'Notification', importPath: '@tauri-apps/plugin-notification' },
-  { module: tauriFs, prefix: 'Fs', importPath: '@tauri-apps/plugin-fs' },
-  { module: tauriStore, prefix: 'Store', importPath: '@tauri-apps/plugin-store' },
+  { prefix: 'App', importPaths: ['@tauri-apps/api/app'] },
+  { prefix: 'Core', importPaths: ['@tauri-apps/api/core'] },
+  { prefix: 'Path', importPaths: ['@tauri-apps/api/path'] },
+  { prefix: 'Event', importPaths: ['@tauri-apps/api/event'] },
+  { prefix: 'Window', importPaths: ['@tauri-apps/api/webviewWindow', '@tauri-apps/api/window'] },
+  { prefix: 'Webview', importPaths: ['@tauri-apps/api/webview'] },
+  { prefix: 'Shell', importPaths: ['@tauri-apps/plugin-shell'] },
+  { prefix: 'Notification', importPaths: ['@tauri-apps/plugin-notification'] },
+  { prefix: 'Fs', importPaths: ['@tauri-apps/plugin-fs'] },
+  { prefix: 'Store', importPaths: ['@tauri-apps/plugin-store'] },
 ]
 
 export default defineNuxtModule({
@@ -32,19 +22,17 @@ export default defineNuxtModule({
     prefix: 'useTauri',
   },
   setup(options) {
-    tauriModules.forEach(({ module, prefix, importPath }) => {
+    tauriModules.forEach(({ prefix, importPaths }) => {
       const composableName = `${options.prefix}${prefix}`
-      const exports = Object.keys(module).filter(name => name !== 'default')
-
       const templateFile = addTemplate({
         filename: `tauri/${composableName}.ts`,
         write: true,
         getContents: () => `
-import { ${exports.join(', ')} } from '${importPath}'
+${importPaths.map((path, index) => `import * as ${prefix}_${index} from '${path}'`).join('\n')}
 
 export function ${composableName}() {
   return {
-    ${exports.join(',\n    ')}
+    ${importPaths.map((_path, index) => `...${prefix}_${index}`).join(',\n    ')}
   }
 }`,
       })
