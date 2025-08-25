@@ -9,15 +9,20 @@ const toast = useToast()
 
 async function loginToYoutubeMusic() {
   const webview = new WebviewWindow('youtube-login', {
+    title: 'Login to Youtube Music',
     url: 'https://music.youtube.com',
     parent: 'main',
     width: 800,
     height: 600,
-    x: 0,
-    y: 0,
+    minimizable: false,
+    maximizable: false,
+    closable: true,
   })
 
-  webview.listen('tauri://close-requested', login)
+  webview.listen('tauri://close-requested', async () => {
+    await login()
+    await webview.destroy()
+  })
 
   webview.listen('tauri://error', (e) => {
     toast.add({
