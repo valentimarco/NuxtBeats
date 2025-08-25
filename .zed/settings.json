@@ -9,9 +9,11 @@
       "preferred_line_length": 120,
       "prettier": {
         "allowed": false
-      }
+      },
+      "language_servers": ["typescript-language-server"]
     },
     "TypeScript": {
+      "language_servers": ["typescript-language-server"],
       "tab_size": 2,
       "preferred_line_length": 120,
       "prettier": {
