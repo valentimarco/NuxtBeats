@@ -1,18 +1,15 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+const { app } = useAppConfig()
 </script>
 
 <template>
-  <section class="size-full rounded-none flex flex-col overflow-auto p-2 md:p-4">
-    <h1 class="font-bold text-2xl text-(--ui-primary)">
-      Nuxt UI - Starter
-    </h1>
+  <UContainer class="relative overflow-hidden h-screen">
+    <div class="grid size-full place-content-center gap-y-8">
+      <SvgoLogo :filled="true" :font-controlled="false" class="mx-auto size-40" />
 
-    <div class="flex items-center gap-2">
-      <UButton label="Documentation" icon="i-lucide-square-play"
-               to="https://ui.nuxt.com/getting-started/installation/nuxt" target="_blank" />
-
-      <UButton label="GitHub" color="neutral" variant="outline" icon="i-simple-icons-github"
-               to="https://github.com/nuxt/ui" target="_blank" />
+      <h1 class="animate-pulse text-3xl sm:text-4xl text-pretty font-bold font-heading md:mb-5">
+        {{ app.name }}
+      </h1>
     </div>
-  </section>
+  </UContainer>
 </template>

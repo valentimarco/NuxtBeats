@@ -1,12 +1,13 @@
 {
   "aria": {
-    "toggle": "Change",
+    "toggle": "Toggle",
+    "more": "More",
     "copy": "Copy to clipboard",
-    "goTop": "Go to the top",
-    "clear": "Clear",
-    "select": "Select {0}",
-    "selectAll": "Select all",
-    "more": "More"
+    "window": {
+      "minimize": "Minimize",
+      "maximize": "Maximize",
+      "close": "Close"
+    }
   },
   "theme": {
     "light": "Light Mode",

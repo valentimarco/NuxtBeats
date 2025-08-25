@@ -1,233 +1,167 @@
-import pkg from "./package.json"
+import { version } from './package.json'
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-
   modules: [
-    "@nuxt/ui",
-    "@nuxt/eslint",
-    "@nuxt/image",
-    "@nuxt/scripts",
-    "@nuxt/test-utils",
-    "nuxt-zod-i18n",
-    "@vueuse/nuxt",
-    "@vueuse/motion/nuxt",
-    "@pinia/nuxt",
-    "@nuxtjs/i18n",
-    "compodium",
-    "nuxt-security",
+    'motion-v/nuxt',
+    'nuxt-svgo',
+    '@vueuse/nuxt',
+    '@pinia/nuxt',
+    '@nuxtjs/i18n',
+    '@nuxt/ui',
+    '@nuxt/image',
+    '@nuxt/eslint',
+    '@compodium/nuxt',
   ],
 
-  css: ["~/assets/css/main.css"],
+  app: {
+    head: {
+      title: 'NuxtBeats',
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+        { name: 'format-detection', content: 'no' },
+      ],
+    },
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
+    layoutTransition: {
+      name: 'layout',
+      mode: 'out-in',
+    },
+  },
+
+  css: [
+    '@/assets/css/main.css',
+  ],
+
+  icon: {
+    serverBundle: 'local',
+    clientBundle: {
+      scan: true,
+      includeCustomCollections: true,
+    },
+  },
+
+  svgo: {
+    autoImportPath: '@/assets/',
+  },
 
   ssr: false,
 
-  devServer: { host: process.env.TAURI_DEV_HOST || "localhost" },
+  dir: {
+    modules: 'app/modules',
+  },
 
   vite: {
-    // Better support for Tauri CLI output
     clearScreen: false,
-    // Enable environment variables
-    // Additional environment variables can be found at
-    // https://tauri.app/2/reference/environment-variables/
-    envPrefix: ["VITE_", "TAURI_"],
+    envPrefix: ['VITE_', 'TAURI_'],
     server: {
       strictPort: true,
+      hmr: {
+        protocol: 'ws',
+        host: 'localhost',
+        port: 3001,
+      },
+      watch: {
+        ignored: ['**/tauri/**'],
+      },
     },
     build: {
       rollupOptions: {
-        external: ["sharp"],
+        external: ['sharp'],
       },
     },
   },
 
-  experimental: {
-    typedPages: true,
+  devServer: {
+    host: process.env.TAURI_DEV_HOST || 'localhost',
   },
 
-  typescript: {
-    tsConfig: {
-      compilerOptions: {
-        types: ["vitest/globals"],
-      },
+  router: {
+    options: {
+      scrollBehaviorType: 'smooth',
     },
   },
 
-  app: {
-    pageTransition: {
-      name: "page",
-      mode: "out-in",
-    },
-    layoutTransition: {
-      name: "layout",
-      mode: "out-in",
-    },
-  },
-
-  compodium: {
-    includeLibraryCollections: true,
-    extras: {
-      ui: {
-        matchColors: true,
-      },
-    },
-  },
-
-  future: {
-    compatibilityVersion: 4,
-  },
-
-  compatibilityDate: "2024-11-27",
-
-  runtimeConfig: {
-    public: {
-      version: pkg.version,
-    },
-  },
-
-  image: {
-    quality: 100,
-  },
-
-  icon: {
-    serverBundle: "local",
-  },
-
-  colorMode: {
-    classSuffix: "",
-    preference: "system",
-    fallback: "light",
-  },
-
-  zodI18n: {
-    dateFormat: {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    },
-    localeCodesMapping: {
-      "en-GB": "en",
-      "en-US": "en",
-      "it-IT": "it",
-      "es-ES": "es",
-      "fr-FR": "fr",
-      "de-DE": "de",
+  eslint: {
+    config: {
+      standalone: false,
     },
   },
 
   i18n: {
-    baseUrl: "",
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
     experimental: {
       typedPages: true,
-      typedOptionsAndMessages: "default",
-      generatedLocaleFilePathFormat: "off",
-      alternateLinkCanonicalQueries: true,
+      typedOptionsAndMessages: 'default',
     },
     compilation: {
       strictMessage: false,
     },
     locales: [
       {
-        code: "en",
-        language: "en-GB",
-        name: "English",
-        file: "en-GB.json",
+        code: 'en',
+        language: 'en-GB',
+        name: 'English',
+        file: 'en-GB.json',
         isCatchallLocale: true,
       },
       {
-        code: "it",
-        language: "it-IT",
-        name: "Italiano",
-        file: "it-IT.json",
+        code: 'it',
+        language: 'it-IT',
+        name: 'Italiano',
+        file: 'it-IT.json',
       },
       {
-        code: "es",
-        language: "es-ES",
-        name: "Español",
-        file: "es-ES.json",
+        code: 'es',
+        language: 'es-ES',
+        name: 'Español',
+        file: 'es-ES.json',
       },
       {
-        code: "fr",
-        language: "fr-FR",
-        name: "Français",
-        file: "fr-FR.json",
+        code: 'fr',
+        language: 'fr-FR',
+        name: 'Français',
+        file: 'fr-FR.json',
       },
       {
-        code: "de",
-        language: "de-DE",
-        name: "Deutsch",
-        file: "de-DE.json",
+        code: 'de',
+        language: 'de-DE',
+        name: 'Deutsch',
+        file: 'de-DE.json',
       },
     ],
-    lazy: true,
-    defaultLocale: "en",
-    strategy: "no_prefix",
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: "i18n_redirected",
+      cookieKey: 'i18n_redirected',
       alwaysRedirect: true,
-      redirectOn: "root",
+      redirectOn: 'root',
     },
   },
 
-  security: {
-    enabled: process.env.NODE_ENV?.startsWith("prod"),
-    csrf: false,
-    nonce: true,
-    corsHandler: {
-      origin: ["http://localhost:3000", "(.*)\\.gstatic\\.com", "gstatic\\.com"],
-      useRegExp: true,
-    },
-    headers: {
-      crossOriginEmbedderPolicy: "unsafe-none",
-      crossOriginResourcePolicy: "cross-origin",
-      referrerPolicy: "strict-origin-when-cross-origin",
-      contentSecurityPolicy: {
-        "upgrade-insecure-requests": false,
-        "img-src": [
-          "'self'",
-          "data:",
-          "https:",
-          "blob:",
-        ],
-        "script-src": [
-          "'self'",
-          "'unsafe-inline'",
-          "'nonce-{{nonce}}'",
-          "'strict-dynamic'",
-          "'sha256-tYCcUbFfjZ9QESuTWESGWrFg2SmiEdyD2MYUfRWUgK0='",
-        ],
-        "worker-src": [
-          "'self'",
-          "blob:",
-        ],
-        "script-src-attr": [
-          "'unsafe-hashes'",
-          "'sha256-jp2rwKRAEWWbK5cz0grQYZbTZyihHbt00dy2fY8AuWY='",
-        ],
-        "style-src": [
-          "'self'",
-          "https:",
-          "'unsafe-inline'",
-        ],
-      },
-    },
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    disableTransition: false,
   },
 
-  $development: {
-    devtools: {
-      enabled: true,
-      timeline: {
-        enabled: true,
-      },
-    },
+  devtools: {
+    enabled: false,
   },
 
-  $test: {
-    debug: true,
+  experimental: {
+    typedPages: true,
+    emitRouteChunkError: 'automatic-immediate',
+  },
+
+  compatibilityDate: 'latest',
+
+  runtimeConfig: {
+    public: {
+      version,
+    },
   },
 })

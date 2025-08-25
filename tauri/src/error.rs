@@ -7,9 +7,6 @@ pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Error, Debug, Serialize, Type)]
 pub enum Error {
-    #[error("An error occurred while running the runtime: {0}")]
-    Runtime(String),
-
     #[error("An IO error occurred: {0}")]
     IO(String),
 
@@ -21,6 +18,12 @@ pub enum Error {
 
     #[error("Operation time out after {0:?}")]
     Timeout(Duration),
+
+    #[error("A tauri error occurred: {0}")]
+    Tauri(String),
+
+    #[error("A rustypipe error occurred: {0}")]
+    RustyPipe(String),
 }
 
 impl From<std::io::Error> for Error {
@@ -29,8 +32,14 @@ impl From<std::io::Error> for Error {
     }
 }
 
-impl From<tokio::task::JoinError> for Error {
-    fn from(err: tokio::task::JoinError) -> Self {
-        Error::Runtime(err.to_string())
+impl From<tauri::Error> for Error {
+    fn from(err: tauri::Error) -> Self {
+        Error::Tauri(err.to_string())
+    }
+}
+
+impl From<rustypipe::error::Error> for Error {
+    fn from(err: rustypipe::error::Error) -> Self {
+        Error::RustyPipe(err.to_string())
     }
 }

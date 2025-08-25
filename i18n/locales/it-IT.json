@@ -1,12 +1,13 @@
 {
   "aria": {
     "toggle": "Cambia",
+    "more": "Altro",
     "copy": "Copia negli appunti",
-    "goTop": "Vai in alto",
-    "clear": "Pulisci",
-    "select": "Seleziona {0}",
-    "selectAll": "Seleziona tutto",
-    "more": "Altro"
+    "window": {
+      "minimize": "Riduci a icona",
+      "maximize": "Espandi",
+      "close": "Chiudi"
+    }
   },
   "theme": {
     "light": "Modalità Chiara",

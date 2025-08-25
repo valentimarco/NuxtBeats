@@ -1,35 +1,40 @@
-use api::MusicApi;
-use specta_typescript::Typescript;
-use tauri::{AppHandle, Manager};
-use tauri_specta::{collect_commands, Builder};
-
-use tokio::sync::Mutex;
 mod api;
-mod command;
+mod cookie;
 mod error;
-mod handler;
-mod player;
+mod commands;
 
-#[derive(Clone)]
-struct AppState {
-    music_api: MusicApi,
-}
+use std::sync::Arc;
 
-// type State = tauri::State<'a, Mutex<AppState>>;
+#[cfg(debug_assertions)]
+use specta_typescript::Typescript;
+use tauri::{
+    async_runtime::Mutex,
+    menu::{Menu, MenuItem},
+    tray::TrayIconBuilder,
+     Manager, Wry,
+};
+use tauri_plugin_store::{Store, StoreExt};
 
-async fn setup(app: &AppHandle) {
-    let music_api = MusicApi::new().await;
-    app.manage(Mutex::new(AppState { music_api }));
+use tauri_specta::{Builder, collect_commands};
+
+use crate::commands::init::{get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic};
+
+use crate::{api::YoutubeMusicApi, error::Result};
+
+pub struct AppState {
+    store: Mutex<Arc<Store<Wry>>>,
+    api: Mutex<Option<YoutubeMusicApi>>,
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let builder = Builder::<tauri::Wry>::new()
+    let builder_specta = Builder::<tauri::Wry>::new()
         // Then register them (separated by a comma)
-        .typ::<command::Playlist>()
-        .commands(collect_commands![command::get_playlists,]);
+        // .typ::<command::Playlist>()
+        // .events(collect_events![AuthLogin, AuthLogout])
+        .commands(collect_commands![get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic]);
     #[cfg(debug_assertions)] // <- Only export on non-release builds
-    builder
+    builder_specta
         .export(
             Typescript::default().bigint(specta_typescript::BigIntExportBehavior::Number),
             "../app/utils/tauri.ts",
@@ -37,23 +42,52 @@ pub fn run() {
         .expect("Failed to export typescript bindings");
 
     tauri::Builder::default()
-        // and finally tell Tauri how to invoke them
+        .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+            let _ = app
+                .get_webview_window("main")
+                .expect("no main window")
+                .set_focus();
+        }))
+        .plugin(tauri_plugin_store::Builder::new().build())
+        .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_shell::init())
+        .plugin(tauri_plugin_fs::init())
+        .invoke_handler(builder_specta.invoke_handler())
         .setup(move |app| {
-            // This is also required if you want to use events
-            //builder.mount_events(app);
+            let store = Mutex::new(
+                app.store(
+                    app.path()
+                        .app_config_dir()
+                        .unwrap()
+                        .as_path()
+                        .join("store.json"),
+                )
+                .unwrap(),
+            );
 
-            // Setup app
-            tauri::async_runtime::block_on(setup(app.handle()));
+            // builder_specta.mount_events(app);
+
+            app.manage(AppState { store, api: Mutex::new(None) });
+
+            let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
+            let menu = Menu::with_items(app, &[&quit_i])?;
+
+            let _tray = TrayIconBuilder::new()
+                .menu(&menu)
+                .show_menu_on_left_click(true)
+                .icon(app.default_window_icon().unwrap().clone())
+                .on_menu_event(|app, event| match event.id.as_ref() {
+                    "quit" => {
+                        app.exit(0);
+                    }
+                    other => {
+                        println!("menu item {} not handled", other);
+                    }
+                })
+                .build(app)?;
+
             Ok(())
         })
-        .invoke_handler(builder.invoke_handler())
-        // on an actual app, remove the string argument
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-
-    // tauri::Builder::default()
-    //     .plugin(tauri_plugin_shell::init())
-    //     .invoke_handler(tauri::generate_handler![greet])
-    //     .run(tauri::generate_context!())
-    //     .expect("error while running tauri application");
 }

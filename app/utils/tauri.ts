@@ -5,9 +5,25 @@
 
 
 export const commands = {
-async getPlaylists() : Promise<Result<Playlist[], Error>> {
+async getYtmusicCookies(label: string) : Promise<Result<null, Error>> {
     try {
-    return { status: "ok", data: await TAURI_INVOKE("get_playlists") };
+    return { status: "ok", data: await TAURI_INVOKE("get_ytmusic_cookies", { label }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async instanceYtmusicApi(cookies: string) : Promise<Result<null, Error>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("instance_ytmusic_api", { cookies }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async logoutYtmusic() : Promise<Result<null, Error>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("logout_ytmusic") };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -26,8 +42,7 @@ async getPlaylists() : Promise<Result<Playlist[], Error>> {
 /** user-defined types **/
 
 export type Duration = { secs: number; nanos: number }
-export type Error = { Runtime: string } | { IO: string } | { Mutex: string } | { Command: string } | { Timeout: Duration }
-export type Playlist = { id: string; name: string; description: string; cover: string[]; tracks: number }
+export type Error = { IO: string } | { Mutex: string } | { Command: string } | { Timeout: Duration } | { Tauri: string } | { RustyPipe: string }
 
 /** tauri-specta globals **/
 

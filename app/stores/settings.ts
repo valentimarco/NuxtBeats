@@ -1,7 +1,16 @@
-import type { Locale } from "#i18n"
+import type { Locale } from '#i18n'
 
-export const useSettingsStore = defineStore("Settings", () => {
-  const isDark = useDark()
+export const useSettingsStore = defineStore('Settings', () => {
+  const colorMode = useColorMode()
+
+  const isDark = computed({
+    get() {
+      return colorMode.value === 'dark'
+    },
+    set(_isDark) {
+      colorMode.preference = _isDark ? 'dark' : 'light'
+    },
+  })
   const toggleDark = useToggle(isDark)
 
   const { locale, locales, setLocale, setLocaleCookie } = useI18n()

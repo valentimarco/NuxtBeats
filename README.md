@@ -1,39 +1,38 @@
-# NuxtBeats
+<h1 align="center">NuxtBeats</h1>
+<p align="center">
+Desktop music player, made with <a href="https://nuxt.com">Nuxt 4</a> and <a href="https://v2.tauri.app">Tauri 2</a>!
+</p>
 
-## Setup
+<p float="left">
+	<img src="https://img.shields.io/github/package-json/v/valentimarco/NuxtBeats" />
+	<img src="https://img.shields.io/github/license/valentimarco/NuxtBeats" />
+</p>
 
-Make sure to install the dependencies:
+## Stack used
 
-```bash
-bun install
+- Nuxt v4
+- Tauri v2
+- NuxtUI v3
+- TailwindCSS v4
+- TypeScript
+- ESLint
+
+## Build
+
+```sh
+bun run tauri:build
 ```
 
-## Development Server
+This command will generate the Nuxt static output and bundle the project under `tauri/target`.
 
-Start the development server on `http://localhost:3000`:
+## Debug
 
-```bash
-bun run dev:tauri
+```sh
+bun run tauri:build:debug
 ```
 
-If using wayland and a nvidia gpu use this instead:
+The same Tauri bundle will generate under `tauri/target`, but with the ability to open the console.
 
-```bash
-WAYLAND_DEBUG=1 \ # Logs all gtk and wayland interactions
-__NV_DISABLE_EXPLICIT_SYNC=1 \
-bun run dev:tauri
-```
+## License
 
-## Production
-
-Build the application for production:
-
-```bash
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-bun run preview
-```
+MIT License © 2025-PRESENT [valentimarco](https://github.com/valentimarco)
