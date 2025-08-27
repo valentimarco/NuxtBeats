@@ -1,8 +1,16 @@
 use tauri::webview::Cookie;
 
+/// Standard header used by many tools for Netscape cookies.txt files.
+pub const NETSCAPE_COOKIE_FILE_HEADER: &str = "\
+# Netscape HTTP Cookie File
+# http://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file!  Do not edit.
+
+";
+
 pub fn cookies_to_netscape_format(cookies: Vec<Cookie<'static>>) -> String {
     let mut netscape_format = String::new();
-    netscape_format.push_str("# Netscape HTTP Cookie File\n\n");
+    netscape_format.push_str(NETSCAPE_COOKIE_FILE_HEADER);
 
     let mut filtered = Vec::new();
 
@@ -17,35 +25,36 @@ pub fn cookies_to_netscape_format(cookies: Vec<Cookie<'static>>) -> String {
     for cookie in filtered {
         let domain = match cookie.domain() {
             Some(x) => x,
-            None => continue,
+            None => "",
         };
+        //some cookies are setted as false even if they are true
         let sub_domain = match cookie.same_site() {
             Some(x) => match x {
-                tauri::webview::cookie::SameSite::Lax => true,
-                _ => false,
+                tauri::webview::cookie::SameSite::Lax => "TRUE",
+                _ => "TRUE",
             },
-            None => false,
+            None => "TRUE",
         };
         let path = match cookie.path() {
             Some(x) => x,
-            None => continue,
+            None => "/",
         };
         let secure = match cookie.secure() {
-            Some(x) => x,
-            None => false,
+            Some(_) => "TRUE",
+            None => "FALSE",
         };
         let expires = match cookie.expires() {
             Some(x) => match x.datetime() {
                 Some(y) => y.unix_timestamp(),
                 None => 0,
             },
-            None => continue,
+            None => 0,
         };
         let name = cookie.name();
         let value = cookie.value();
 
-        netscape_format.push_str(&format!(
-            "{}\t{}\t{}\t{}\t{}\t{}\t{}\n",
+        let cookie_string = format!(
+            "{}\t{}\t{}\t{}\t{}\t{}\t{}",
             String::from(".") + domain,
             sub_domain,
             path,
@@ -53,7 +62,9 @@ pub fn cookies_to_netscape_format(cookies: Vec<Cookie<'static>>) -> String {
             expires,
             name,
             value
-        ));
+        );
+
+        netscape_format.push_str(&format!("{}\n", cookie_string));
     }
 
     netscape_format
