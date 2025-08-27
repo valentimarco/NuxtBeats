@@ -16,11 +16,19 @@ pub async fn get_ytmusic_cookies(app_handle: AppHandle, label: String) -> Result
     let webview = app_handle
         .get_webview_window(&label)
         .ok_or(Error::Tauri(String::from("Error when getting webview")))?;
-    let res = tauri::async_runtime::spawn(async move {
-        webview.cookies().map(|x| cookies_to_netscape_format(x))
-    })
-    .await
-    .map_err(|err| Error::from(err))??;
+    let res;
+    #[cfg(target_os = "windows")]
+    {
+        res = tauri::async_runtime::spawn(async move {
+            webview.cookies().map(|x| cookies_to_netscape_format(x))
+        })
+        .await
+        .map_err(|err| Error::from(err))??;
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        res = webview.cookies().map(|x| cookies_to_netscape_format(x))?
+    }
 
     store.set("cookies", json!(res));
     store.save().map_err(|err| Error::Tauri(err.to_string()))?;

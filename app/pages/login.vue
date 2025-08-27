@@ -10,7 +10,7 @@ const toast = useToast()
 async function loginToYoutubeMusic() {
   const webview = new WebviewWindow('youtube-login', {
     title: 'Login to Youtube Music',
-    url: 'https://music.youtube.com',
+    url: 'https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fmusic.youtube.com',
     parent: 'main',
     width: 800,
     height: 600,

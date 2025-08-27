@@ -33,7 +33,7 @@
   },
   "productName": "NuxtBeats",
   "version": "1.0.0",
-  "identifier": "com.nuxtbeats.app",
+  "identifier": "com.nuxtbeats.player",
   "plugins": {},
   "app": {
     "windows": [
