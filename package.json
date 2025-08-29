@@ -28,7 +28,7 @@
     "release": "bumpp && changelogen",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tuari:dev:nvidia": "__NV_DISABLE_EXPLICIT_SYNC=1 tauri dev",
+    "tauri:dev:nvidia": "__NV_DISABLE_EXPLICIT_SYNC=1 tauri dev",
     "tauri:build": "tauri build",
     "tauri:build:debug": "tauri build --debug"
   },

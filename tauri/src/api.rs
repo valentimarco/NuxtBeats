@@ -30,12 +30,12 @@ impl YoutubeMusicApi {
         let _ = paginator_playlists.extend_all(query).await?;
         Ok(paginator_playlists
             .items
-            .iter()
+            .into_iter()
             .map(|x| Playlist {
-                id: x.id.clone(),
-                name: x.name.clone(),
+                id: x.id,
+                name: x.name,
                 tracks: x.track_count.unwrap_or(0),
-                cover: x.thumbnail.iter().map(|i| i.url.clone()).collect(),
+                cover: x.thumbnail.into_iter().map(|i| i.url).collect(),
             })
             .collect())
     }
