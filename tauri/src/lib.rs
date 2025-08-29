@@ -1,22 +1,25 @@
 mod api;
+mod commands;
 mod cookie;
 mod error;
-mod commands;
-
-use std::sync::Arc;
+mod types;
 
 #[cfg(debug_assertions)]
 use specta_typescript::Typescript;
+use std::sync::Arc;
 use tauri::{
     async_runtime::Mutex,
     menu::{Menu, MenuItem},
     tray::TrayIconBuilder,
-     Manager, Wry,
+    Manager, Wry,
 };
 use tauri_plugin_store::{Store, StoreExt};
 
-use tauri_specta::{Builder, collect_commands};
+use tauri_specta::{collect_commands, Builder};
+use tracing::Level;
+use tracing_subscriber::FmtSubscriber;
 
+use crate::commands::api::get_all_playlists;
 use crate::commands::init::{get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic};
 
 use crate::{api::YoutubeMusicApi, error::Result};
@@ -28,11 +31,23 @@ pub struct AppState {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    tracing::subscriber::set_global_default(
+        FmtSubscriber::builder()
+            .with_max_level(Level::TRACE)
+            .finish(),
+    )
+    .expect("setting default subscriber failed");
+
     let builder_specta = Builder::<tauri::Wry>::new()
         // Then register them (separated by a comma)
-        // .typ::<command::Playlist>()
+        .typ::<types::Playlist>()
         // .events(collect_events![AuthLogin, AuthLogout])
-        .commands(collect_commands![get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic]);
+        .commands(collect_commands![
+            get_ytmusic_cookies,
+            instance_ytmusic_api,
+            logout_ytmusic,
+            get_all_playlists
+        ]);
     #[cfg(debug_assertions)] // <- Only export on non-release builds
     builder_specta
         .export(
@@ -67,7 +82,10 @@ pub fn run() {
 
             // builder_specta.mount_events(app);
 
-            app.manage(AppState { store, api: Mutex::new(None) });
+            app.manage(AppState {
+                store,
+                api: Mutex::new(None),
+            });
 
             let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
             let menu = Menu::with_items(app, &[&quit_i])?;

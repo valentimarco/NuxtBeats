@@ -3,14 +3,49 @@
 // For a full list of overridable settings, and general information on folder-specific settings,
 // see the documentation: https://zed.dev/docs/configuring-zed#settings-files
 {
+  "lsp": {
+    // "vtsls": {
+    //   "settings": {
+    //     "vtsls": {
+    //       "tsserver": {
+    //         "globalPlugins": [
+    //           {
+    //             "name": "@vue/typescript-plugin",
+    //             "location": "~/.local/share/zed/extensions/work/vue/node_modules/@vue/language-server",
+    //             "languages": ["vue.js"],
+    //             "configNamespace": "typescript",
+    //             "enableForWorkspaceTypeScriptVersions": true
+    //           }
+    //         ]
+    //       }
+    //     }
+    //   }
+    // },
+    "typescript-language-server": {
+      "plugins": [
+        {
+          "name": "@vue/typescript-plugin",
+          "location": "~/.local/share/zed/extensions/work/vue/node_modules/@vue/language-server",
+          "languages": ["vue.js"]
+        }
+      ]
+    },
+    "vue-language-server": {
+      "initialization_options": {
+        "vue": {
+          "hybridMode": true
+        }
+      }
+    }
+  },
   "languages": {
     "Vue.js": {
       "tab_size": 2,
       "preferred_line_length": 120,
       "prettier": {
         "allowed": false
-      },
-      "language_servers": ["typescript-language-server"]
+      }
+      // "language_servers": ["typescript-language-server", "vue-language-server"]
     },
     "TypeScript": {
       "language_servers": ["typescript-language-server"],

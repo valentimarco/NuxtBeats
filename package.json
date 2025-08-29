@@ -1,76 +1,77 @@
 {
-	"name": "nuxt-beats",
-	"type": "module",
-	"version": "0.0.1",
-	"private": true,
-	"description": "Desktop music player made with Nuxt and Tauri",
-	"author": "zAlweNy26",
-	"contributors": [
-		{
-			"name": "zAlweNy26",
-			"email": "alwe.dev@gmail.com",
-			"url": "https://github.com/zAlweNy26"
-		},
-		{
-			"name": "valentimarco",
-			"email": "mcvalenti2001@gmail.com",
-			"url": "https://github.com/valentimarco"
-		}
-	],
-	"license": "MIT",
-	"scripts": {
-		"dev": "nuxt dev",
-		"generate": "nuxt generate",
-		"postinstall": "nuxt prepare",
-		"typecheck": "nuxt typecheck",
-		"lint": "eslint --cache .",
-		"lint:fix": "eslint --cache --fix .",
-		"release": "bumpp && changelogen",
-		"tauri": "tauri",
-		"tauri:dev": "tauri dev",
-		"tauri:build": "tauri build",
-		"tauri:build:debug": "tauri build --debug"
-	},
-	"dependencies": {
-		"@nuxt/image": "1.11.0",
-		"@nuxt/ui": "^3.3.2",
-		"@nuxtjs/i18n": "10.0.6",
-		"@pinia/nuxt": "0.11.2",
-		"@tauri-apps/api": "^2.8.0",
-		"@tauri-apps/plugin-fs": "^2.4.2",
-		"@tauri-apps/plugin-notification": "^2.3.1",
-		"@tauri-apps/plugin-shell": "^2.3.0",
-		"@tauri-apps/plugin-store": "^2.4.0",
-		"@vueuse/core": "^13.7.0",
-		"@vueuse/nuxt": "^13.7.0",
-		"motion-v": "^1.7.0",
-		"nuxt": "^4.0.3",
-		"nuxt-svgo": "^4.2.6",
-		"pinia": "^3.0.3",
-		"vue": "^3.5.19",
-		"vue-router": "^4.5.1"
-	},
-	"devDependencies": {
-		"@antfu/eslint-config": "^5.2.1",
-		"@nuxt/eslint": "^1.9.0",
-		"@compodium/nuxt": "0.1.0-beta.11",
-		"@tauri-apps/cli": "^2.8.2",
-		"bumpp": "^10.2.3",
-		"changelogen": "^0.6.2",
-		"eslint": "^9.34.0",
-		"vue-tsc": "~3.0.6",
-		"eslint-plugin-format": "^1.0.1",
-		"eslint-plugin-vuejs-accessibility": "^2.4.1",
-		"typescript": "^5.9.2"
-	},
-	"overrides": {
-		"@vercel/nft": "^0.27.4",
-		"eslint-plugin-jsdoc": "^50.8.0"
-	},
-	"trustedDependencies": [
-		"sharp"
-	],
-	"resolutions": {
-		"typescript": "npm:tslite@latest"
-	}
+  "name": "nuxt-beats",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Desktop music player made with Nuxt and Tauri",
+  "author": "zAlweNy26",
+  "contributors": [
+    {
+      "name": "zAlweNy26",
+      "email": "alwe.dev@gmail.com",
+      "url": "https://github.com/zAlweNy26"
+    },
+    {
+      "name": "valentimarco",
+      "email": "mcvalenti2001@gmail.com",
+      "url": "https://github.com/valentimarco"
+    }
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint --cache .",
+    "lint:fix": "eslint --cache --fix .",
+    "release": "bumpp && changelogen",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tuari:dev:nvidia": "__NV_DISABLE_EXPLICIT_SYNC=1 tauri dev",
+    "tauri:build": "tauri build",
+    "tauri:build:debug": "tauri build --debug"
+  },
+  "dependencies": {
+    "@nuxt/image": "1.11.0",
+    "@nuxt/ui": "^3.3.2",
+    "@nuxtjs/i18n": "10.0.6",
+    "@pinia/nuxt": "0.11.2",
+    "@tauri-apps/api": "^2.8.0",
+    "@tauri-apps/plugin-fs": "^2.4.2",
+    "@tauri-apps/plugin-notification": "^2.3.1",
+    "@tauri-apps/plugin-shell": "^2.3.0",
+    "@tauri-apps/plugin-store": "^2.4.0",
+    "@vueuse/core": "^13.7.0",
+    "@vueuse/nuxt": "^13.7.0",
+    "motion-v": "^1.7.0",
+    "nuxt": "^4.0.3",
+    "nuxt-svgo": "^4.2.6",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.19",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^5.2.1",
+    "@nuxt/eslint": "^1.9.0",
+    "@compodium/nuxt": "0.1.0-beta.11",
+    "@tauri-apps/cli": "^2.8.2",
+    "bumpp": "^10.2.3",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.34.0",
+    "vue-tsc": "~3.0.6",
+    "eslint-plugin-format": "^1.0.1",
+    "eslint-plugin-vuejs-accessibility": "^2.4.1",
+    "typescript": "^5.9.2"
+  },
+  "overrides": {
+    "@vercel/nft": "^0.27.4",
+    "eslint-plugin-jsdoc": "^50.8.0"
+  },
+  "trustedDependencies": [
+    "sharp"
+  ],
+  "resolutions": {
+    "typescript": "npm:tslite@latest"
+  }
 }

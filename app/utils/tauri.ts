@@ -28,6 +28,14 @@ async logoutYtmusic() : Promise<Result<null, Error>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async getAllPlaylists() : Promise<Result<Playlist[], Error>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_all_playlists") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -43,6 +51,7 @@ async logoutYtmusic() : Promise<Result<null, Error>> {
 
 export type Duration = { secs: number; nanos: number }
 export type Error = { IO: string } | { Mutex: string } | { Command: string } | { Timeout: Duration } | { Tauri: string } | { RustyPipe: string }
+export type Playlist = { id: string; name: string; cover: string[]; tracks: number }
 
 /** tauri-specta globals **/
 

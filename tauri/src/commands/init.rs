@@ -4,9 +4,9 @@ use tauri::Emitter;
 use tauri::Manager;
 
 use crate::api::YoutubeMusicApi;
-use crate::{Result, error::Error};
-use crate::AppState;
 use crate::cookie::cookies_to_netscape_format;
+use crate::AppState;
+use crate::{error::Error, Result};
 
 #[tauri::command]
 #[specta::specta]
@@ -29,10 +29,12 @@ pub async fn get_ytmusic_cookies(app_handle: AppHandle, label: String) -> Result
     {
         res = webview.cookies().map(|x| cookies_to_netscape_format(x))?
     }
-
+    println!("{}", res);
     store.set("cookies", json!(res));
     store.save().map_err(|err| Error::Tauri(err.to_string()))?;
-    instance_ytmusic_api(app_handle.clone(), res).await.map_err(|err| Error::IO(err.to_string()))
+    instance_ytmusic_api(app_handle.clone(), res)
+        .await
+        .map_err(|err| Error::IO(err.to_string()))
 }
 
 #[tauri::command]
@@ -49,9 +51,7 @@ pub async fn instance_ytmusic_api(app_handle: AppHandle, cookies: String) -> Res
             app_handle.emit("auth:login", ()).unwrap();
             Ok(())
         }
-        Err(err) => {
-            Err(err)
-        }
+        Err(err) => Err(err),
     }
 }
 
