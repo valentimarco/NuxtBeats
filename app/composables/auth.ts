@@ -17,7 +17,7 @@ export function useAuth() {
     listeners.push(await listen('auth:login', async (e) => {
       userData.value = e.payload as UserData
       isLogged.value = true
-      await navigateTo('/')
+      await navigateTo('/discover')
     }))
 
     listeners.push(await listen('auth:logout', async () => {

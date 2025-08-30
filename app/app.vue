@@ -15,6 +15,7 @@ await callOnce(async () => {
   <Html class="overflow-x-hidden">
     <Body class="font-sans antialiased">
       <UApp>
+        <NuxtLoadingIndicator />
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>
