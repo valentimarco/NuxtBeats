@@ -16,5 +16,27 @@
     },
     "language": {
         "toggle": "@:aria.toggle Sprache"
+    },
+    "navigation": {
+        "search": "Suchen...",
+        "links": "Links",
+        "discover": "Entdecken",
+        "recent": "Kürzlich",
+        "favorites": "Favoriten",
+        "playlists": "Wiedergabelisten",
+        "feedback": "Feedback",
+        "help": "Hilfe und Support"
+    },
+    "user": {
+        "account": "Konto",
+        "settings": "Einstellungen",
+        "appearance": "Aussehen",
+        "logout": "Abmelden"
+    },
+    "dashboard": {
+        "discover": {},
+        "recent": {},
+        "favorites": {},
+        "playlists": {}
     }
 }

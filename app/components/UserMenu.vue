@@ -5,33 +5,52 @@ defineProps<{
   collapsed?: boolean
 }>()
 
+const languagesFlags = {
+  en: '🇬🇧',
+  es: '🇪🇸',
+  fr: '🇫🇷',
+  de: '🇩🇪',
+  it: '🇮🇹',
+} as const
+
+const { t } = useI18n()
 const colorMode = useColorMode()
-const appConfig = useAppConfig()
 const { userData, logout } = useAuth()
-const colors = ['red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose']
-const neutrals = ['slate', 'gray', 'zinc', 'neutral', 'stone']
+const settings = useSettingsStore()
+const { changeLocale } = settings
+const { locale, locales } = storeToRefs(settings)
 
 const user = computed(() => ({
   name: userData.value?.username || 'User',
   avatar: {
     src: userData.value?.picture,
     alt: userData.value?.username || 'User',
+    size: 'md' as const,
   },
 }))
 
+const languageOptions = computed<DropdownMenuItem[]>(() => locales.value
+  .map(l => ({
+    label: `${languagesFlags[l.code]} ${l.name}`,
+    type: 'checkbox',
+    onSelect: () => changeLocale(l.code),
+    checked: l.code === locale.value,
+  })),
+)
+
 const items = computed<DropdownMenuItem[][]>(() => ([[{
-  label: 'Account',
+  label: t('user.account'),
   icon: 'i-lucide:user',
   to: 'https://music.youtube.com/@test',
   target: '_blank',
 }, {
-  label: 'Settings',
+  label: t('user.settings'),
   icon: 'i-lucide-settings',
   to: '/settings',
 }], [{
   slot: 'appearance',
   type: 'checkbox',
-  label: 'Appearance',
+  label: t('user.appearance'),
   icon: 'i-lucide-sun-moon',
   checked: colorMode.value === 'dark',
   onUpdateChecked(checked) {
@@ -41,8 +60,13 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
     e.preventDefault()
   },
   ui: { itemTrailingIcon: 'hidden' },
+}, {
+  label: t('language.toggle'),
+  icon: 'i-tabler-language',
+  children: languageOptions.value,
+  content: { sideOffset: 12, align: 'center', side: 'right' },
 }], [{
-  label: 'Log out',
+  label: t('user.logout'),
   icon: 'i-lucide-log-out',
   onSelect: logout,
 }]]))
@@ -53,6 +77,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
                  :ui="{ content: collapsed ? 'w-48' : 'w-(--reka-dropdown-menu-trigger-width)' }">
     <UButton v-bind="{
       ...user,
+      size: 'lg',
       label: collapsed ? undefined : user?.name,
       trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down',
     }" color="neutral" variant="ghost" block :square="collapsed" class="data-[state=open]:bg-elevated" :ui="{

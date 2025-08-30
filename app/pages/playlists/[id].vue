@@ -15,12 +15,12 @@ const playlist = computed(() => playlists.value.find(i => i.id === (route.params
 </script>
 
 <template>
-  <DashboardPanel>
+  <div class="grow">
     <NuxtImg height="192" width="192" class="size-48 rounded-md" :alt="playlist.name" quality="100"
              :src="playlist.cover[0]" />
     <h2 class="font-bold text-lg text-center">
       {{ playlist.name }}
     </h2>
     <h3>{{ playlist.tracks }}</h3>
-  </DashboardPanel>
+  </div>
 </template>
