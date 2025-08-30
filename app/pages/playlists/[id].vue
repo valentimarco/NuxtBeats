@@ -3,7 +3,9 @@ definePageMeta({
   middleware: [async (to) => {
     const { playlists } = await usePlaylists()
     const id = (to.params as { id: string }).id
-    if (!playlists.value.some(i => i.id === id)) return abortNavigation({ statusCode: 404, statusMessage: 'Playlist not found' })
+    if (!playlists.value.some(i => i.id === id)) {
+      throw createError({ statusCode: 404, statusMessage: 'Playlist not found' })
+    }
   }],
 })
 
