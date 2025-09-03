@@ -20,9 +20,21 @@ export async function usePlaylists() {
     playlists.value = res.data.filter(p => p.id !== "LM")
   }
 
+  async function fetchSongsFromPlaylist(id: string, offset: number | null, limit: number | null) {
+    const [err, res] = await tryCatch(commands.getSongsFromPlaylist(id, offset, limit))
+    if (err || res.status === "error") {
+      toast.add({ color: "error", title: "Error fetching songs", description: res?.status === "error" ? res.error.toString() : err?.message })
+      return
+    }
+
+    console.dir(res)
+    return res.data
+  }
+
   return {
     playlists,
     favorites,
     fetchPlaylists,
+    fetchSongsFromPlaylist
   }
 }

@@ -8,23 +8,33 @@ definePageMeta({
   }],
 })
 
-const { playlists } = await usePlaylists()
+const { playlists, fetchSongsFromPlaylist } = await usePlaylists()
 const route = useRoute()
+const playlistId = (route.params as { id: string }).id
 
-const playlist = computed(() => playlists.value.find(i => i.id === (route.params as { id: string }).id)!)
+const playlist = computed(() => playlists.value.find(i => i.id === playlistId))
+
+const songs = computedAsync(async () => {
+  const res = await fetchSongsFromPlaylist(playlistId, 10, null) ?? []
+  return res
+}, [])
 </script>
 
 <template>
   <div class="grow">
     <div class="flex gap-2 md:gap-4">
       <NuxtImg height="192" width="192" class="size-48 rounded-md" :alt="playlist.name" quality="100"
-               :src="playlist.cover[0]" />
+        :src="playlist.cover[0]" />
       <div>
         <h2 class="font-bold text-lg text-center">
           {{ playlist.name }}
         </h2>
         <h3>{{ playlist.tracks }}</h3>
       </div>
+    </div>
+
+    <div class="flex">
+      <h3>{{ songs }} </h3>
     </div>
   </div>
 </template>

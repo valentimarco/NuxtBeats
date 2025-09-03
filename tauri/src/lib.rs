@@ -1,10 +1,14 @@
+#![cfg_attr(
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
+)]
+
 mod api;
 mod commands;
 mod cookie;
 mod error;
 mod types;
 
-#[cfg(debug_assertions)]
 use specta_typescript::Typescript;
 use std::sync::Arc;
 use tauri::{
@@ -19,7 +23,7 @@ use tauri_specta::{collect_commands, Builder};
 use tracing::Level;
 use tracing_subscriber::FmtSubscriber;
 
-use crate::commands::api::get_all_playlists;
+use crate::commands::api::{get_all_playlists, get_songs_from_playlist};
 use crate::commands::init::{get_ytmusic_cookies, instance_ytmusic_api, logout_ytmusic};
 
 use crate::{api::YoutubeMusicApi, error::Result};
@@ -41,12 +45,14 @@ pub fn run() {
     let builder_specta = Builder::<tauri::Wry>::new()
         // Then register them (separated by a comma)
         .typ::<types::Playlist>()
+        .typ::<types::Song>()
         // .events(collect_events![AuthLogin, AuthLogout])
         .commands(collect_commands![
             get_ytmusic_cookies,
             instance_ytmusic_api,
             logout_ytmusic,
-            get_all_playlists
+            get_all_playlists,
+            get_songs_from_playlist
         ]);
     #[cfg(debug_assertions)] // <- Only export on non-release builds
     builder_specta

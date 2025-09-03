@@ -36,6 +36,14 @@ async getAllPlaylists() : Promise<Result<Playlist[], Error>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+async getSongsFromPlaylist(playlistId: string, offset: number | null, limit: number | null) : Promise<Result<Song[], Error>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("get_songs_from_playlist", { playlistId, offset, limit }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -49,9 +57,12 @@ async getAllPlaylists() : Promise<Result<Playlist[], Error>> {
 
 /** user-defined types **/
 
+export type Album = { name: string; id: string }
+export type Artist = { name: string; id: string }
 export type Duration = { secs: number; nanos: number }
 export type Error = { IO: string } | { Mutex: string } | { Command: string } | { Timeout: Duration } | { Tauri: string } | { RustyPipe: string }
 export type Playlist = { id: string; name: string; cover: string[]; tracks: number }
+export type Song = { id: string; name: string; artists: Artist[]; album: Album; time: string }
 
 /** tauri-specta globals **/
 

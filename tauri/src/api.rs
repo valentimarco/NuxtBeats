@@ -1,10 +1,11 @@
 use std::path::Path;
 
 use rustypipe::{client::RustyPipe, model::MusicPlaylistItem};
+use time::Duration;
 
 use crate::{
     error::{Error, Result},
-    types::Playlist,
+    types::{Album, Artist, Playlist, Song},
 };
 
 pub struct YoutubeMusicApi {
@@ -40,5 +41,90 @@ impl YoutubeMusicApi {
             .collect())
     }
 
+    pub async fn get_songs_from_playlist_music(
+        &self,
+        id: String,
+        offset: Option<usize>,
+        limit: Option<usize>,
+    ) -> Result<Vec<Song>> {
+        let query = self.client.query().authenticated();
+        let mut paginator = query.music_playlist(id).await?;
+        match offset {
+            Some(of) => {
+                let _ = paginator.tracks.extend_pages(query, of);
+            }
+            None => {
+                let _ = paginator.tracks.extend_all(query);
+            }
+        };
+
+        Ok(paginator
+            .tracks
+            .items
+            .into_iter()
+            .map(|x| Song {
+                name: x.name,
+                id: x.id,
+                artists: x
+                    .artists
+                    .into_iter()
+                    .map(|y| Artist {
+                        name: y.name,
+                        id: y.id.unwrap_or(String::from("None???")),
+                    })
+                    .collect(),
+                album: x
+                    .album
+                    .map(|y| Album {
+                        name: y.name,
+                        id: y.id,
+                    })
+                    .unwrap_or(Album::default()),
+                time: Duration::seconds(x.duration.unwrap() as i64),
+            })
+            .collect())
+    }
+
+    pub async fn get_songs_from_playlist_yt(
+        &self,
+        id: String,
+        offset: Option<usize>,
+        limit: Option<usize>,
+    ) -> Result<Vec<Song>> {
+        let query = self.client.query().authenticated();
+        let playlist = query.playlist(id).await?;
+        let mut paginator = playlist.videos;
+        match offset {
+            Some(of) => {
+                let _ = paginator.extend_pages(query, of);
+            }
+            None => {
+                let _ = paginator.extend_all(query);
+            }
+        };
+
+        Ok(paginator
+            .items
+            .into_iter()
+            .map(|x| Song {
+                id: x.id,
+                name: x.name,
+                artists: x
+                    .channel
+                    .map(|y| {
+                        vec![Artist {
+                            name: y.name,
+                            id: y.id,
+                        }]
+                    })
+                    .unwrap(),
+                album: Album {
+                    name: String::new(),
+                    id: String::new(),
+                },
+                time: Duration::seconds(x.duration.unwrap() as i64),
+            })
+            .collect())
+    }
     // pub async fn play_playlist(&self) -> Result<()> {}
 }

@@ -1,5 +1,13 @@
 <script lang="ts" setup>
 const { app } = useAppConfig()
+const { favorites, fetchSongsFromPlaylist } = await usePlaylists()
+
+const songs = await computedAsync(async () => {
+  const res = await fetchSongsFromPlaylist("LM", 2, null) ?? []
+  return favorites.value.songs = res
+}, [])
+
+
 </script>
 
 <template>
