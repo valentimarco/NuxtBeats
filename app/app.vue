@@ -16,9 +16,11 @@ await callOnce(async () => {
     <Body class="font-sans antialiased">
       <UApp>
         <NuxtLoadingIndicator />
-        <NuxtLayout>
-          <NuxtPage />
-        </NuxtLayout>
+        <UMain>
+          <NuxtLayout>
+            <NuxtPage />
+          </NuxtLayout>
+        </UMain>
       </UApp>
     </Body>
   </Html>
