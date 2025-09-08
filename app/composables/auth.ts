@@ -35,11 +35,11 @@ export function useAuth() {
   })
 
   async function login() {
-    await commands.getYtmusicCookies('youtube-login')
+    return tryCatchTauri(commands.getYtmusicCookies('youtube-login'))
   }
 
   async function logout() {
-    await commands.logoutYtmusic()
+    return tryCatchTauri(commands.logoutYtmusic())
   }
 
   return {

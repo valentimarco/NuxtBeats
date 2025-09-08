@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { TableColumn } from '@nuxt/ui'
+import { UAvatar } from '#components'
+
 definePageMeta({
   middleware: [async (to) => {
     const { playlists } = await usePlaylists()
@@ -8,16 +11,42 @@ definePageMeta({
   }],
 })
 
-const { playlists, fetchSongsFromPlaylist } = await usePlaylists()
+const { playlists } = await usePlaylists()
 const route = useRoute()
 const playlistId = (route.params as { id: string }).id
+const playlist = computed(() => playlists.value.find(i => i.id === playlistId)!)
 
-const playlist = computed(() => playlists.value.find(i => i.id === playlistId))
-
-const songs = computedAsync(async () => {
-  const res = await fetchSongsFromPlaylist(playlistId, 10, null) ?? []
+const { data: songs, status } = await useLazyAsyncData(`playlist-${playlistId}`, async () => {
+  const [err, res] = await tryCatchTauri(commands.getSongsFromPlaylist(playlistId, null, null))
+  if (err || !res) throw createError({ statusCode: 500, statusMessage: 'Failed to load songs' })
   return res
-}, [])
+}, {
+  default: () => [] as Song[],
+})
+
+const columns: TableColumn<Song>[] = [
+  {
+    accessorKey: 'id',
+    header: '#',
+    cell: ({ row }) => row.index + 1,
+    meta: { class: { th: 'w-0' } },
+  },
+  {
+    accessorKey: 'name',
+    header: 'Name'
+  },
+  {
+    accessorKey: 'album',
+    header: 'Album',
+    cell: ({ row }) => row.original.album.name || '-'
+  },
+  {
+    accessorKey: 'time',
+    header: 'Duration',
+    cell: ({ row }) => Number(row.original.time)
+  }
+]
+
 </script>
 
 <template>
@@ -32,9 +61,6 @@ const songs = computedAsync(async () => {
         <h3>{{ playlist.tracks }}</h3>
       </div>
     </div>
-
-    <div class="flex">
-      <h3>{{ songs }} </h3>
-    </div>
+    <UTable :data="songs" :columns :loading="status === 'pending'" sticky />
   </div>
 </template>
