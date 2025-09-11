@@ -6,7 +6,7 @@ use tauri::Manager;
 use crate::api::YoutubeMusicApi;
 use crate::cookie::cookies_to_netscape_format;
 use crate::AppState;
-use crate::{error::Error, Result};
+use crate::{error::TauriError, Result};
 
 #[tauri::command]
 #[specta::specta]
@@ -15,7 +15,9 @@ pub async fn get_ytmusic_cookies(app_handle: AppHandle, label: String) -> Result
     let store = state.store.lock().await;
     let webview = app_handle
         .get_webview_window(&label)
-        .ok_or(Error::Tauri(String::from("Error when getting webview")))?;
+        .ok_or(TauriError::Tauri(String::from(
+            "Error when getting webview",
+        )))?;
     let res;
     #[cfg(target_os = "windows")]
     {
@@ -30,10 +32,12 @@ pub async fn get_ytmusic_cookies(app_handle: AppHandle, label: String) -> Result
         res = webview.cookies().map(|x| cookies_to_netscape_format(x))?
     }
     store.set("cookies", json!(res));
-    store.save().map_err(|err| Error::Tauri(err.to_string()))?;
+    store
+        .save()
+        .map_err(|err| TauriError::Tauri(err.to_string()))?;
     instance_ytmusic_api(app_handle.clone(), res)
         .await
-        .map_err(|err| Error::IO(err.to_string()))
+        .map_err(|err| TauriError::IO(err.to_string()))
 }
 
 #[tauri::command]

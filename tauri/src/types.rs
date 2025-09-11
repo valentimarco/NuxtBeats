@@ -1,6 +1,5 @@
 use serde::Serialize;
 use specta::Type;
-use time::Duration;
 
 #[derive(Serialize, Type, Default)]
 pub struct Artist {
@@ -20,7 +19,7 @@ pub struct Song {
     pub name: String,
     pub artists: Vec<Artist>,
     pub album: Album,
-    pub time: Duration,
+    pub time: u32,
 }
 
 #[derive(Serialize, Type)]

@@ -36,37 +36,3 @@ export async function tryCatch<T = any, E extends new (...args: any[]) => Error 
     throw error
   }
 }
-
-/**
- * Catches errors from a promise.
- * @param promise The promise to handle.
- * @param options Additional options for handling the promise.
- * @returns A tuple with either the error or the result of the promise.
- * @throws Will rethrow the error if it is not in the `errorsToCatch` array.
- */
-export async function tryCatchTauri<T, E extends TauriError>(
-  promise: Promise<Result<T, E>>,
-  options?: {
-    /** An optional message to log when an error occurs */
-    logMessage?: string
-    /** A callback function to execute on success */
-    onSuccess?: (result: T) => void
-    /** A callback function to execute on error */
-    onError?: (error: InstanceType<ErrorConstructor>) => void
-  },
-): Promise<[undefined, T] | [InstanceType<ErrorConstructor>]> {
-  const { logMessage, onError, onSuccess } = options ?? {}
-  try {
-    const res = await promise
-    if (res.status === "error") throw new Error(Object.values(res.error).flat().join(", "))
-    onSuccess?.(res.data)
-    return [undefined, res.data]
-  }
-  catch (error: any) {
-    if (!(error instanceof Error)) throw error
-    console.error(logMessage || "An error occurred while executing a promise:")
-    console.dir(error)
-    onError?.(error)
-    return [error]
-  }
-}

@@ -4,7 +4,7 @@ use rustypipe::{client::RustyPipe, model::MusicPlaylistItem};
 use time::Duration;
 
 use crate::{
-    error::{Error, Result},
+    error::{Result, TauriError},
     types::{Album, Artist, Playlist, Song},
 };
 
@@ -80,7 +80,7 @@ impl YoutubeMusicApi {
                         id: y.id,
                     })
                     .unwrap_or(Album::default()),
-                time: Duration::seconds(x.duration.unwrap() as i64),
+                time: x.duration.unwrap(),
             })
             .collect())
     }
@@ -122,7 +122,7 @@ impl YoutubeMusicApi {
                     name: String::new(),
                     id: String::new(),
                 },
-                time: Duration::seconds(x.duration.unwrap() as i64),
+                time: x.duration.unwrap(),
             })
             .collect())
     }

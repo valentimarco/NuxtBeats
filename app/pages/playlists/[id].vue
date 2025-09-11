@@ -17,7 +17,7 @@ const playlistId = (route.params as { id: string }).id
 const playlist = computed(() => playlists.value.find(i => i.id === playlistId)!)
 
 const { data: songs, status } = await useLazyAsyncData(`playlist-${playlistId}`, async () => {
-  const [err, res] = await tryCatchTauri(commands.getSongsFromPlaylist(playlistId, null, null))
+  const [err, res] = await tryCatch(commands.getSongsFromPlaylist(playlistId, null, null))
   if (err || !res) throw createError({ statusCode: 500, statusMessage: 'Failed to load songs' })
   return res
 }, {
@@ -43,7 +43,7 @@ const columns: TableColumn<Song>[] = [
   {
     accessorKey: 'time',
     header: 'Duration',
-    cell: ({ row }) => Number(row.original.time)
+    cell: ({ row }) => row.original.time
   }
 ]
 

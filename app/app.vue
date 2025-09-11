@@ -7,7 +7,7 @@ await store.value.init()
 
 await callOnce(async () => {
   const cookies = await store.value.get<string>('cookies')
-  if (cookies) await tryCatchTauri(commands.instanceYtmusicApi(cookies))
+  if (cookies) await tryCatch(commands.instanceYtmusicApi(cookies))
 })
 </script>
 

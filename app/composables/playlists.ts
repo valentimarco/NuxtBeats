@@ -10,7 +10,7 @@ export async function usePlaylists() {
   })
 
   async function fetchPlaylists() {
-    const [err, res] = await tryCatchTauri(commands.getAllPlaylists())
+    const [err, res] = await tryCatch(commands.getAllPlaylists())
     if (err) {
       toast.add({ color: "error", title: "Error fetching playlists", description: err.message })
       return
