@@ -3,7 +3,7 @@
 
 @theme static {
   --font-heading: 'Montserrat', sans-serif;
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: 'Lato', sans-serif;
 }
 
 @layer utilities {
@@ -44,6 +44,8 @@
   --ui-border-inverted: var(--ui-color-neutral-900);
 
   --ui-radius: 0.375rem;
+
+  --ui-header-height: --spacing(12);
 }
 
 .dark {

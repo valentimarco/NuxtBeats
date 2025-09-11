@@ -17,7 +17,7 @@ export function useAuth() {
     listeners.push(await listen('auth:login', async (e) => {
       userData.value = e.payload as UserData
       isLogged.value = true
-      await navigateTo('/')
+      await navigateTo('/discover')
     }))
 
     listeners.push(await listen('auth:logout', async () => {
@@ -35,11 +35,11 @@ export function useAuth() {
   })
 
   async function login() {
-    await commands.getYtmusicCookies('youtube-login')
+    return tryCatch(commands.getYtmusicCookies('youtube-login'))
   }
 
   async function logout() {
-    await commands.logoutYtmusic()
+    return tryCatch(commands.logoutYtmusic())
   }
 
   return {

@@ -3,10 +3,10 @@ use specta::Type;
 use std::time::Duration;
 use thiserror::Error;
 
-pub type Result<T> = std::result::Result<T, Error>;
+pub type Result<T> = std::result::Result<T, TauriError>;
 
 #[derive(Error, Debug, Serialize, Type)]
-pub enum Error {
+pub enum TauriError {
     #[error("An IO error occurred: {0}")]
     IO(String),
 
@@ -26,20 +26,20 @@ pub enum Error {
     RustyPipe(String),
 }
 
-impl From<std::io::Error> for Error {
+impl From<std::io::Error> for TauriError {
     fn from(err: std::io::Error) -> Self {
-        Error::IO(err.to_string())
+        TauriError::IO(err.to_string())
     }
 }
 
-impl From<tauri::Error> for Error {
+impl From<tauri::Error> for TauriError {
     fn from(err: tauri::Error) -> Self {
-        Error::Tauri(err.to_string())
+        TauriError::Tauri(err.to_string())
     }
 }
 
-impl From<rustypipe::error::Error> for Error {
+impl From<rustypipe::error::Error> for TauriError {
     fn from(err: rustypipe::error::Error) -> Self {
-        Error::RustyPipe(err.to_string())
+        TauriError::RustyPipe(err.to_string())
     }
 }

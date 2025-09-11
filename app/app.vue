@@ -7,7 +7,7 @@ await store.value.init()
 
 await callOnce(async () => {
   const cookies = await store.value.get<string>('cookies')
-  if (cookies) await commands.instanceYtmusicApi(cookies)
+  if (cookies) await tryCatch(commands.instanceYtmusicApi(cookies))
 })
 </script>
 
@@ -15,9 +15,12 @@ await callOnce(async () => {
   <Html class="overflow-x-hidden">
     <Body class="font-sans antialiased">
       <UApp>
-        <NuxtLayout>
-          <NuxtPage />
-        </NuxtLayout>
+        <NuxtLoadingIndicator />
+        <UMain>
+          <NuxtLayout>
+            <NuxtPage />
+          </NuxtLayout>
+        </UMain>
       </UApp>
     </Body>
   </Html>
