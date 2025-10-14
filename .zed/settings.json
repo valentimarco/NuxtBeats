@@ -4,32 +4,32 @@
 // see the documentation: https://zed.dev/docs/configuring-zed#settings-files
 {
   "lsp": {
-    // "vtsls": {
-    //   "settings": {
-    //     "vtsls": {
-    //       "tsserver": {
-    //         "globalPlugins": [
-    //           {
-    //             "name": "@vue/typescript-plugin",
-    //             "location": "~/.local/share/zed/extensions/work/vue/node_modules/@vue/language-server",
-    //             "languages": ["vue.js"],
-    //             "configNamespace": "typescript",
-    //             "enableForWorkspaceTypeScriptVersions": true
-    //           }
-    //         ]
-    //       }
-    //     }
-    //   }
-    // },
-    "typescript-language-server": {
-      "plugins": [
-        {
-          "name": "@vue/typescript-plugin",
-          "location": "~/.local/share/zed/extensions/work/vue/node_modules/@vue/language-server",
-          "languages": ["vue.js"]
+    "vtsls": {
+      "settings": {
+        "vtsls": {
+          "tsserver": {
+            "globalPlugins": [
+              {
+                "name": "@vue/typescript-plugin",
+                "location": "~/.local/share/zed/extensions/work/vue/node_modules/@vue/language-server",
+                "languages": ["vue.js"],
+                "configNamespace": "typescript",
+                "enableForWorkspaceTypeScriptVersions": true
+              }
+            ]
+          }
         }
-      ]
+      }
     },
+    // "typescript-language-server": {
+    //   "plugins": [
+    //     {
+    //       "name": "@vue/typescript-plugin",
+    //       "location": "~/.local/share/zed/extensions/work/vue/node_modules/@vue/language-server",
+    //       "languages": ["vue.js"]
+    //     }
+    //   ]
+    // },
     "vue-language-server": {
       "initialization_options": {
         "vue": {
@@ -44,11 +44,11 @@
       "preferred_line_length": 120,
       "prettier": {
         "allowed": false
-      }
-      // "language_servers": ["typescript-language-server", "vue-language-server"]
+      },
+      "language_servers": ["vue-language-server", "vtsls"]
     },
     "TypeScript": {
-      "language_servers": ["typescript-language-server"],
+      // "language_servers": ["typescript-language-server"],
       "tab_size": 2,
       "preferred_line_length": 120,
       "prettier": {

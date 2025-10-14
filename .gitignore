@@ -26,7 +26,5 @@ logs
 .env.*
 !.env.example
 
-# Tauri
-.cargo
-tauri/target
-tauri/gen
+# Electron
+dist-electron

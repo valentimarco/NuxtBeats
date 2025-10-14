@@ -2,6 +2,7 @@ import { version } from './package.json'
 
 export default defineNuxtConfig({
   modules: [
+    'nuxt-electron-next',
     'motion-v/nuxt',
     'nuxt-svgo',
     '@vueuse/nuxt',
@@ -12,6 +13,14 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@compodium/nuxt',
   ],
+  electron: {
+    build: [
+      {
+        // Main-Process entry file of the Electron App.
+        entry: 'electron/main.ts',
+      },
+    ],
+  },
 
   app: {
     head: {
@@ -49,36 +58,17 @@ export default defineNuxtConfig({
   },
 
   ssr: false,
-
   dir: {
     modules: 'app/modules',
   },
 
   vite: {
-    clearScreen: false,
-    envPrefix: ['VITE_', 'TAURI_'],
-    server: {
-      strictPort: true,
-      hmr: {
-        protocol: 'ws',
-        host: 'localhost',
-        port: 3001,
-      },
-      watch: {
-        ignored: ['**/tauri/**'],
-      },
-    },
     build: {
       rollupOptions: {
         external: ['sharp'],
       },
     },
   },
-
-  devServer: {
-    host: process.env.TAURI_DEV_HOST || 'localhost',
-  },
-
   router: {
     options: {
       scrollBehaviorType: 'smooth',
